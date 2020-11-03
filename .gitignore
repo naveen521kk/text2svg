@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
-
+*.def
+buildfinal
 # Object files
 *.o
 *.ko
@@ -56,3 +57,4 @@ obj
 *.cbp
 *.json
 *.svg
+*.layout
