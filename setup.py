@@ -58,13 +58,12 @@ def update_dict(dict1, dict2):
 
 
 pyx_file = str(Path(__file__).parent / "text2svg" / "ctext2svg.pyx")
-include_dir = str(Path(__file__) / "text2svg")
 returns = get_library_config("glib-2.0")
 returns = update_dict(returns, get_library_config("cairo"))
 returns = update_dict(returns, get_library_config("pangocairo"))
 returns = update_dict(returns, get_library_config("text2svg"))
 
-ext_modules = [Extension("ctext2svg", [pyx_file], **returns)]
+ext_modules = [Extension("text2svg.ctext2svg", [pyx_file], **returns)]
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -76,6 +75,7 @@ setup(
     author_email="naveen@syrusdark.website",
     description="Convert text to SVG file.",
     long_description=long_description,
+    zip_safe=False,
     long_description_content_type="text/markdown",
     url="https://github.com/naveen521kk/text2svg",
     packages=find_packages(),
@@ -86,5 +86,10 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    ext_modules=cythonize(ext_modules, language_level=3, include_path=[include_dir]),
+    ext_modules=cythonize(
+        ext_modules,
+        language_level=3,
+        include_path=["text2svg"],
+        build_dir=str(Path(__file__).parent / "build"),
+    ),
 )

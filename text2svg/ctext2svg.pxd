@@ -1,3 +1,19 @@
+# text2svg, Convert text to SVG files.
+# Copyright (C) 2020 Naveen M K
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 cdef extern from "glib.h":
     ctypedef void* gpointer
     ctypedef int gint
@@ -57,7 +73,3 @@ cdef extern from "pango/pangocairo.h":
 cdef extern from "pango/pango-types.h":
     int PANGO_SCALE
     int pango_units_from_double(double d)
-
-
-#cdef extern from "text2svg.h":
-#    cdef int text2svg(const char *text, const char *filename, const char *font, int width, int height, float START_X, float START_Y, double width_layout, gint font_size, PangoStyle font_style, PangoWeight font_weight)
