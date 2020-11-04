@@ -1,5 +1,10 @@
 cdef extern from "glib.h":
+    ctypedef void* gpointer
     ctypedef int gint
+
+cdef extern from "glib-object.h":
+
+    void g_object_unref (gpointer object);
 
 cdef extern from "cairo.h":
     ctypedef struct cairo_surface_t:
@@ -49,7 +54,9 @@ cdef extern from "pango/pango-font.h":
 cdef extern from "pango/pangocairo.h":
     PangoLayout* pango_cairo_create_layout(cairo_t* cr)
     void pango_cairo_show_layout (cairo_t* cr,PangoLayout* layout)
-
+cdef extern from "pango/pango-types.h":
+    int PANGO_SCALE
+    int pango_units_from_double(double d)
 
 
 #cdef extern from "text2svg.h":
