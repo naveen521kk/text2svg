@@ -37,7 +37,7 @@ jobs:
         brew install pango
         brew install cairo
     - uses: msys2/setup-msys2@v2
-      name: Install System Dependency (MacOS)
+      name: Install System Dependency (Windows)
       if: runner.os == 'windows'
       with:
         update: true
