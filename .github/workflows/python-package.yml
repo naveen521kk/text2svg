@@ -42,7 +42,7 @@ jobs:
       with:
         update: true
         msystem: MINGW64
-        install: mingw-w64-x86_64-gcc mingw-w64-x86_64-pango mingw-w64-x86_64-cairo python3 python3-pip
+        install: mingw-w64-x86_64-gcc mingw-w64-x86_64-pango mingw-w64-x86_64-cairo mingw-w64-x86_64-python3 mingw-w64-x86_64-python3-pip
     - name: Run Tests (Windows)
       shell: msys2 {0}
       if: runner.os == 'windows'
