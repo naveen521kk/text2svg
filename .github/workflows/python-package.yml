@@ -24,6 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest Cython
+
     - name: Install System Dependency (Linux)
       if: runner.os == 'Linux'
       run: |
@@ -48,8 +49,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install Cython pytest
+        pip install .
         pytest
     - name: Run Tests (Non-Windows)
       if: runner.os != 'windows'
       run: |
+        pip install .
         pytest        
