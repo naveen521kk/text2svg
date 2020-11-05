@@ -7,10 +7,12 @@ import zipfile
 from pathlib import Path
 from urllib.request import urlretrieve
 from urllib.request import urlretrieve as download
+import tempfile
 
 logging.basicConfig(format="%(levelname)s - %(message)s",level=logging.DEBUG)
 
-download_location = Path(r"D:/dll_files/")
+final_location = Path(r"D:/dll_files/")
+download_location = Path(tempfile.mkdtemp())
 if download_location.exists():
     logging.info("Download Location already exists clearing it...")
     shutil.rmtree(str(download_location))
