@@ -27,6 +27,7 @@ jobs:
           python-version: '3.7'
 
       - name: Install cibuildwheel
+        continue-on-error: true
         run: |
           python -m pip install cibuildwheel==1.6.4
 
