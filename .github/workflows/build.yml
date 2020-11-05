@@ -55,3 +55,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           path: ./wheelhouse/*.whl
+          name: wheels-${{ runner.os }}

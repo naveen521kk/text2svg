@@ -33,7 +33,7 @@ logging.info(f"Extracting {download_file} to {download_location}...")
 with zipfile.ZipFile(download_file, mode="r", compression=zipfile.ZIP_DEFLATED) as file:
     file.extractall(download_location)
 os.remove(download_file)
-shutil.move(download_location / "build" / "pkg-config", str(final_location))
+shutil.move(str(download_location / "build" / "pkg-config"), str(final_location))
 logging.info("Completed Extracting.")
 plat = get_platform()
 logging.debug(f"Found Platform as {plat}")
