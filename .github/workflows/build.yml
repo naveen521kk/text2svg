@@ -13,8 +13,8 @@ jobs:
       CIBW_BUILD: "cp37-*"
       CIBW_SKIP: "pp* cp35"
       CIBW_TEST_REQUIRES: pytest Cython
-      CIBW_BEFORE_BUILD_LINUX: "pip install . && yum install -y cairo-devel && yum install -y pango-devel"
-      CIBW_BEFORE_BUILD_MACOS : "pip install . && brew install pango && brew install cairo"
+      CIBW_BEFORE_BUILD_LINUX: "yum install -y cairo-devel && yum install -y pango-devel && pip install ."
+      CIBW_BEFORE_BUILD_MACOS : "brew install pango && brew install cairo && pip install ."
       CIBW_TEST_COMMAND: pytest
     steps:
       - uses: actions/checkout@v2
