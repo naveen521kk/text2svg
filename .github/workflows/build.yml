@@ -15,7 +15,7 @@ jobs:
       CIBW_SKIP: "pp* cp35"
       CIBW_BEFORE_BUILD_LINUX: "yum install -y pkgconfig && pkg-config --help && yum install -y cairo-devel && yum install -y pango-devel && pip install ."
       CIBW_BEFORE_BUILD_MACOS : "brew install pango && brew install cairo && pip install ."
-      CIBW_ENVIRONMENT: "LDFLAGS='-lpango -lpangocairo -lcairo'"
+
     steps:
       - uses: actions/checkout@v2
 
