@@ -17,6 +17,7 @@ jobs:
       CIBW_BEFORE_BUILD_LINUX: "yum install -y pkgconfig && yum install -y cairo-devel && yum install -y pango-devel && pip install ."
       CIBW_BEFORE_BUILD_MACOS : "brew install pango && brew install cairo && pip install ."
       CIBW_TEST_COMMAND: pytest
+      CIBW_BUILD_VERBOSITY: 1
     steps:
       - uses: actions/checkout@v2
 
