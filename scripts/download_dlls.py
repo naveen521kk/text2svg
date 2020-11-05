@@ -11,7 +11,7 @@ import tempfile
 
 logging.basicConfig(format="%(levelname)s - %(message)s",level=logging.DEBUG)
 
-final_location = Path(r"D:/dll_files/")
+final_location = Path(r"D:/bin/")
 download_location = Path(tempfile.mkdtemp())
 if download_location.exists():
     logging.info("Download Location already exists clearing it...")
@@ -29,4 +29,4 @@ os.remove(download_file)
 logging.info("Completed Extracting.")
 logging.info("Moving Files.")
 
-shutil.move(str(download_location / "build") , str(download_location))
+shutil.move(str(download_location / "build") , str(final_location))
