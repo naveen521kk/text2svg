@@ -9,7 +9,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04, macos-latest]
-
+    env:
+      CIBW_BUILD: "cp3?-*"
+      CIBW_SKIP: "pp* cp35"
+      CIBW_TEST_REQUIRES: pytest Cython
+      CIBW_BEFORE_BUILD_LINUX: "pip install . && yum install -y cairo-devel && yum install -y pango-devel"
+      CIBW_BEFORE_BUILD_MACOS : "pip install . && brew install pango && brew install cairo"
+      CIBW_TEST_COMMAND: pytest
     steps:
       - uses: actions/checkout@v2
 
