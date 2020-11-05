@@ -35,7 +35,7 @@ def get_library_config(name):
     """
     try:
         proc = Popen(
-            ["pkg-config", "--cflags", "--libs", name], stdout=PIPE, stderr=PIPE
+            ["pkg-config", "--cflags", "--libs-only-l", name], stdout=PIPE, stderr=PIPE
         )
     except OSError:
         print("pkg-config is required for building text2svg")
