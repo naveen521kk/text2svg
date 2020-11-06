@@ -18,7 +18,7 @@ def get_platform():
 
 logging.basicConfig(format="%(levelname)s - %(message)s",level=logging.DEBUG)
 
-final_location = Path(r"D:\cibw\vendor")
+final_location = Path(r"C:\cibw\vendor")
 download_location = Path(tempfile.mkdtemp())
 if final_location.exists():
     logging.info("Final Location already exists clearing it...")
@@ -47,7 +47,7 @@ logging.info("Fixing .pc files")
 import re
 rex=re.compile("^prefix=(.*)")
 def new_place(some):
-    return f"prefix={str(final_location)}"
+    return f"prefix={str(final_location.as_posix())}"
 pc_files=final_location / "lib" / "pkgconfig"
 for i in pc_files.glob("*.pc"):
     logging.info(f"Writing {i}")
