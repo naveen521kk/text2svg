@@ -18,7 +18,7 @@ jobs:
       CIBW_BEFORE_BUILD_WINDOWS: "pip install cython && python windll/download_dlls.py && pkg-config --libs pango"
       CIBW_TEST_REQUIRES: pytest Cython
       CIBW_TEST_COMMAND: "pytest {project}/tests"
-      CIBW_ENVIRONMENT_WINDOWS: "PKG_CONFIG_PATH='C:\\cibw\\vendor\\lib\\pkgconfig' PATH='$PATH:/C/cibw/vendor/pkg-config/bin'"
+      CIBW_ENVIRONMENT_WINDOWS: "PKG_CONFIG_PATH='C:\\cibw\\vendor\\lib\\pkgconfig' PATH='/c/cibw/vendor/pkg-config/bin:$PATH'"
       CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: python windll/inject-dlls.py {wheel} {dest_dir} C:\cibw\vendor\bin
 
     steps:
