@@ -50,7 +50,6 @@ jobs:
       - name: Build wheels(Windows)
         if: runner.os == 'windows'
         run: |
-          Move-Item windll/LICENSE_win32.txt LICENSE -Force
           $env:PATH="$env:PATH;C:\cibw\vendor\pkg-config\bin"
           $env:PKG_CONFIG_PATH="C:\cibw\vendor\lib\pkgconfig"
           python -m cibuildwheel --output-dir wheelhouse
