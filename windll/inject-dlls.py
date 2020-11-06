@@ -5,6 +5,10 @@ import logging
 import os
 import shutil
 import zipfile
+from wheel.cli.unpack import unpack
+from wheel.cli.pack import pack
+import tempfile
+from pathlib import Path
 
 parser = argparse.ArgumentParser(description="Inject DLLs into a Windows binary wheel")
 parser.add_argument(
@@ -20,18 +24,21 @@ parser.add_argument(
 args = parser.parse_args()
 wheel_name = os.path.basename(args.wheel)
 package_name = wheel_name.split("-")[0]
+version_number = wheel_name.split("-")[1]
 repaired_wheel = os.path.join(args.dest_dir, wheel_name)
+temp_dir = Path(tempfile.mkdtemp())
 
-logging.basicConfig(level=logging.INFO)
-logging.info("Copying '%s' to '%s'", args.wheel, repaired_wheel)
-shutil.copy(args.wheel, repaired_wheel)
+logging.basicConfig(level=logging.DEBUG)
+logging.info("Extracting '%s' to '%s'", args.wheel, temp_dir)
+unpack(args.wheel,str(temp_dir))
 
 logging.info("Adding DLLs from '%s' to package '%s'", args.dll_dir, package_name)
-with zipfile.ZipFile(repaired_wheel, mode="a", compression=zipfile.ZIP_DEFLATED) as wheel:
-    for name in sorted(os.listdir(args.dll_dir)):
-        if name.lower().endswith(".dll"):
-            local_path = os.path.join(args.dll_dir, name)
-            archive_path = os.path.join(package_name, name)
-            if archive_path not in wheel.namelist():
-                logging.info("Adding '%s' as '%s'", local_path, archive_path)
-                wheel.write(local_path, archive_path)
+
+dll_dir=Path(args.dll_dir)
+archive_path=temp_dir / f"{package_name}-{version_number}" / package_name
+
+for local_path in dll_dir.glob("*.dll"):
+    logging.info("Copying '%s' to '%s'", local_path, archive_path)
+    shutil.copy(local_path,archive_path)
+package_directory= temp_dir / f"{package_name}-{version_number}"
+pack(str(package_directory),args.dest_dir,None)

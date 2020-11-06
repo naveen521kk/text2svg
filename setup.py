@@ -80,7 +80,9 @@ setup(
     zip_safe=False,
     long_description_content_type="text/markdown",
     url="https://github.com/naveen521kk/text2svg",
+    license='GPL version 3',
     packages=find_packages(),
+    keywords=["cython","pango","cairo","svg"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Development Status :: 3 - Alpha",
