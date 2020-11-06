@@ -56,7 +56,6 @@ jobs:
       - name: Build wheels
         continue-on-error: true
         run: |
-          $env:PKG_CONFIG_PATH=""
           python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
