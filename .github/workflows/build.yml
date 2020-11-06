@@ -1,14 +1,31 @@
 name: Build Wheels
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: 
+      -master
 
 jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-latest]
+        os: [ubuntu-18.04, macos-latest,windows-2016]
+    env:
+      CIBW_BUILD: "cp37-* cp36-* cp38-* cp39-*"
+      CIBW_SKIP: "pp* cp35"
+      CIBW_BEFORE_BUILD_LINUX: "yum install -y pkgconfig && yum install -y cairo-devel && yum install -y pango-devel && pip install ."
+      CIBW_BEFORE_BUILD_MACOS: "brew install pango && brew install cairo && pip install ."
+      CIBW_BEFORE_BUILD_WINDOWS: "pip install cython && python windll/download_dlls.py && pkg-config --libs pango"
+      CIBW_TEST_REQUIRES: pytest Cython
+      CIBW_TEST_COMMAND: "pytest {project}/tests"
+      CIBW_ENVIRONMENT_WINDOWS: "PKG_CONFIG_PATH='C:\\cibw\\vendor\\lib\\pkgconfig'"
+      CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: python windll/inject-dlls.py {wheel} {dest_dir} C:\cibw\vendor\bin
 
     steps:
       - uses: actions/checkout@v2
@@ -16,9 +33,10 @@ jobs:
       - uses: actions/setup-python@v2
         name: Install Python
         with:
-          python-version: '3.7'
+          python-version: "3.7"
 
       - name: Install cibuildwheel
+        continue-on-error: true
         run: |
           python -m pip install cibuildwheel==1.6.4
 
@@ -29,17 +47,26 @@ jobs:
           sudo apt install libcairo2-dev pkg-config python3-dev
           sudo apt-get install libpango1.0-dev
 
-
       - name: Install External Dependencies (MacOS)
         if: runner.os == 'macOS'
         run: |
           brew install pango
           brew install cairo
 
-      - name: Build wheels
+      - name: Build wheels(Windows)
+        if: runner.os == 'windows'
+        run: |
+          $env:PATH="$env:PATH;C:\cibw\vendor\pkg-config\bin"
+          $env:PKG_CONFIG_PATH="C:\cibw\vendor\lib\pkgconfig"
+          python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Build wheels (Non-Windows)
+        if: runner.os != 'windows'
+        continue-on-error: true
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
         with:
           path: ./wheelhouse/*.whl
+          name: wheels-${{ runner.os }}

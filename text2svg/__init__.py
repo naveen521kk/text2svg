@@ -23,7 +23,9 @@
     :licence: GPLv3, See LICENSE for details.
 
 """
-
-
+import os
 from .__version__ import *
+if os.name == 'nt':
+    os.environ['PATH'] = os.path.abspath(os.path.dirname(__file__)) + os.pathsep + os.environ['PATH']
+
 from .ctext2svg import *

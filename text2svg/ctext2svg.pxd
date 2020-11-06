@@ -53,7 +53,6 @@ cdef extern from "pango/pango-font.h":
         PANGO_WEIGHT_THIN
         PANGO_WEIGHT_ULTRALIGHT
         PANGO_WEIGHT_LIGHT
-        PANGO_WEIGHT_SEMILIGHT
         PANGO_WEIGHT_BOOK
         PANGO_WEIGHT_NORMAL
         PANGO_WEIGHT_MEDIUM
