@@ -82,14 +82,13 @@ jobs:
           python setup.py sdist
           twine upload dist/*
       - name: Publish (Release)
-        if: github.event_name == 'release'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }} 
         run: |
           pip install twine
-          twine upload dist/*.whl
-          twine upload dist/*.whl
-          twine upload dist/*.whl
+          twine upload wheelhouse/*.whl
+          twine upload wheelhouse/*.whl
+          twine upload wheelhouse/*.whl
           
 
