@@ -22,7 +22,20 @@ jobs:
         pip install setuptools wheel twine Cython setuptools
         sudo apt-get install libpango1.0-dev
         sudo apt install libcairo2-dev pkg-config python3-dev
+        sudo apt-get install libpango1.0-dev
 
+    - uses: actions/download-artifact@v2
+      with:
+        name: wheels-Linux
+        path: linux
+    - uses: actions/download-artifact@v2
+      with:
+        name: wheels-macOS
+        path: mac
+    - uses: actions/download-artifact@v2
+      with:
+        name: wheels-Windows
+        path: win
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
@@ -30,3 +43,6 @@ jobs:
       run: |
         python setup.py sdist
         twine upload dist/*
+        twine upload win/*.whl
+        twine upload mac/*.whl
+        twine upload linux/*.whl
