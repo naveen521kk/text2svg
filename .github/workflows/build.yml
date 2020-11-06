@@ -1,8 +1,10 @@
 name: Build Wheels
 
-on: 
+on:
   push:
   pull_request:
+  release:
+    types: [created]
 
 jobs:
   build_wheels:
@@ -11,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-latest,windows-2016]
+        os: [ubuntu-18.04, macos-latest, windows-2016]
     env:
       CIBW_BUILD: "cp37-* cp36-* cp38-* cp39-*"
       CIBW_SKIP: "pp* cp35"
@@ -39,7 +41,7 @@ jobs:
       - name: Install External Dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
-          pip install pytest Cython
+          pip install setuptools wheel twine Cython setuptools
           sudo apt install libcairo2-dev pkg-config python3-dev
           sudo apt-get install libpango1.0-dev
 
@@ -66,3 +68,16 @@ jobs:
         with:
           path: ./wheelhouse/*.whl
           name: wheels-${{ runner.os }}
+      - name: Publish (Release)
+        if: ${{ runner.os }} == 'Linux' && startsWith( ${{ github.ref }}, "refs/tags/" ) #it is release
+        run: |
+          python setup.py sdist
+          twine upload dist/*
+      - name: Publish (Release)
+        if: startsWith( ${{ github.ref }}, "refs/tags/" ) #it is release
+        run: |
+          twine upload dist/*.whl
+          twine upload dist/*.whl
+          twine upload dist/*.whl
+          
+
