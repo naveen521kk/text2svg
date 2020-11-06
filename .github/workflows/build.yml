@@ -69,12 +69,12 @@ jobs:
           path: ./wheelhouse/*.whl
           name: wheels-${{ runner.os }}
       - name: Publish (Release)
-        if: ${{ runner.os }} == 'Linux' && startsWith( ${{ github.ref }}, "refs/tags/" ) #it is release
+        if: ${{ github.event }} == "release" && ${{runner.os}} == 'Linux'
         run: |
           python setup.py sdist
           twine upload dist/*
       - name: Publish (Release)
-        if: startsWith( ${{ github.ref }}, "refs/tags/" ) #it is release
+        if: ${{ github.event }} == "release"
         run: |
           twine upload dist/*.whl
           twine upload dist/*.whl
