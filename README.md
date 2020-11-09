@@ -1,12 +1,11 @@
 <h1 align="center">Text2SVG</h1>
 
-
-[![GitHub license](https://img.shields.io/github/license/naveen521kk/text2svg?style=flat-square)](https://github.com/naveen521kk/text2svg/blob/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/naveen521kk/text2svg?style=flat-square)](https://github.com/naveen521kk/text2svg/issues)
-![PyPI](https://img.shields.io/pypi/v/text2svg?style=flat-square)
-![PyPI - Format](https://img.shields.io/pypi/format/text2svg?style=flat-square)
-![PyPI - Status](https://img.shields.io/pypi/status/text2svg?style=flat-square)
-![GitHub Release Date](https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square)
+<p align="center"><a href="https://github.com/naveen521kk/text2svg/blob/main/LICENSE"><img src="https://img.shields.io/github/license/naveen521kk/text2svg?style=flat-square" alt="GitHub license"></a>
+<a href="https://github.com/naveen521kk/text2svg/issues"><img src="https://img.shields.io/github/issues/naveen521kk/text2svg?style=flat-square" alt="GitHub issues"></a>
+<img src="https://img.shields.io/pypi/v/text2svg?style=flat-square" alt="PyPI">
+<img src="https://img.shields.io/pypi/format/text2svg?style=flat-square" alt="PyPI - Format">
+<img src="https://img.shields.io/pypi/status/text2svg?style=flat-square" alt="PyPI - Status">
+<img src="https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square" alt="GitHub Release Date"></p>
 
 <p align="center">
   <img alt="Build Wheels" src="https://github.com/naveen521kk/text2svg/workflows/Build%20Wheels/badge.svg">
