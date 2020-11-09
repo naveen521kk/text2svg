@@ -5,9 +5,12 @@
 [![GitHub issues](https://img.shields.io/github/issues/naveen521kk/text2svg?style=flat-square)](https://github.com/naveen521kk/text2svg/issues)
 ![PyPI](https://img.shields.io/pypi/v/text2svg?style=flat-square)
 ![PyPI - Format](https://img.shields.io/pypi/format/text2svg?style=flat-square)
-![PyPI - Status](https://img.shields.io/pypi/status/text2svg)
+![PyPI - Status](https://img.shields.io/pypi/status/text2svg?style=flat-square)
 ![GitHub Release Date](https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square)
-![Build Wheels](https://github.com/naveen521kk/text2svg/workflows/Build%20Wheels/badge.svg)
+
+<p align="center">
+  <img alt="Build Wheels" src="https://github.com/naveen521kk/text2svg/workflows/Build%20Wheels/badge.svg">
+</p>
 
 This is a small wrapper aoung Pango and Cairo which allows you to enter a text and get you svg files ready. This is wrapped using Cython.
 
