@@ -1,2 +1,2 @@
-include *.txt *.md
+include *.win32 *.md 
 recursive-include text2svg *.pyx *.pxd
