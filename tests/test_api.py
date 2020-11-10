@@ -56,5 +56,5 @@ def test_exceptions_file_handling():
         try:
             text2svg(t_info)
         except Exception as e:
-            assert e==b'error while writing to output stream'
+            assert e==Exception(b'error while writing to output stream')
 
