@@ -200,22 +200,41 @@ def text2svg(text_info:TextInfo) -> int:
     cdef PangoLayout* layout
     cdef double width_layout = text_info.width
     cdef double font_size_c=text_info.font_size
+    cdef cairo_status_t status
+    cdef PangoFontMap* mPangoFontMap
+    cdef PangoContext* mPangoContext 
     surface = cairo_svg_surface_create(text_info.filename, text_info.width, text_info.height)
     if surface == NULL:
         raise MemoryError("Cairo.SVGSurface can't be created.")
     cr = cairo_create(surface)
-    if cr == NULL:
+    status = cairo_status(cr)
+    if cr == NULL or status == CAIRO_STATUS_NO_MEMORY:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
         raise MemoryError("Cairo.Context can't be created.")
-    
+    elif status != CAIRO_STATUS_SUCCESS:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
+        raise Exception(cairo_status_to_string(status))
     cairo_move_to(cr,text_info.START_X,text_info.START_Y)
 
-    layout = pango_cairo_create_layout(cr)
+    mPangoFontMap = pango_cairo_font_map_new_for_font_type(CAIRO_FONT_TYPE_FT)
+    if mPangoFontMap == NULL:
+        raise Exception("Cairo is not Compiled with Fontconfig Enabled.")
+    mPangoContext = pango_font_map_create_context(mPangoFontMap)
+    layout = pango_layout_new(mPangoContext)
+    #layout = pango_cairo_create_layout(cr)
     if layout==NULL:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
         raise MemoryError("Pango.Layout can't be created from Cairo Context.")
 
     pango_layout_set_width(layout, pango_units_from_double(width_layout))
     font_desc = pango_font_description_new()
     if font_desc==NULL:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
+        g_object_unref(layout)
         raise MemoryError("Pango.FontDesc can't be created.")
     pango_font_description_set_size(font_desc, pango_units_from_double(font_size_c))
     pango_font_description_set_family(font_desc, text_info.font)
@@ -228,8 +247,31 @@ def text2svg(text_info:TextInfo) -> int:
 
     pango_cairo_show_layout(cr, layout)
 
+    status = cairo_status(cr)
+    if cr == NULL or status == CAIRO_STATUS_NO_MEMORY:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
+        g_object_unref(layout)
+        raise MemoryError("Cairo.Context can't be created.")
+    elif status != CAIRO_STATUS_SUCCESS:
+        cairo_destroy(cr)
+        cairo_surface_destroy(surface)
+        g_object_unref(layout)
+        raise Exception(cairo_status_to_string(status).decode())
+    
     cairo_destroy(cr)
     cairo_surface_destroy(surface)
+    g_object_unref(mPangoFontMap)
+    g_object_unref(mPangoContext)
     g_object_unref(layout)
 
     return 0
+
+def register_font(font_path:str):
+    font_path_bytes=font_path.encode()
+    cdef char* fontPath = font_path_bytes
+    fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath)
+    if fontAddStatus:
+        print("Added Font config Font %s"%font_path)
+    else:
+        raise TypeError("Could not load font from file %s"%fontPath)

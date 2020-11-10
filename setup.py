@@ -63,7 +63,7 @@ pyx_file = str(Path(__file__).parent / "text2svg" / "ctext2svg.pyx")
 returns = get_library_config("glib-2.0")
 returns = update_dict(returns, get_library_config("cairo"))
 returns = update_dict(returns, get_library_config("pangocairo"))
-returns = update_dict(returns, get_library_config("text2svg"))
+returns = update_dict(returns, get_library_config("fontconfig"))
 
 ext_modules = [Extension("text2svg.ctext2svg", [pyx_file], **returns)]
 
