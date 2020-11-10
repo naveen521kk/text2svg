@@ -5,7 +5,7 @@ def test_svg_create():
     from text2svg import TextInfo, text2svg
 
     with tempfile.TemporaryDirectory() as tmpdirname:
-        save_locatiion = Path(tmpdirname) / "test1.svg"
+        save_locatiion = Path(str(tmpdirname)) / "test1.svg"
         t_info = TextInfo(
             "test",
             save_locatiion,
