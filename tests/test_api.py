@@ -12,7 +12,7 @@ def test_svg_create():
             45,
             45,
         )
-        assert text2svg(t_info) == 0
+        assert text2svg(t_info) == 1
         assert save_locatiion.exists()
 
 
@@ -28,7 +28,7 @@ def test_variant():
         font="Crimson",
         font_variant=Variant.SMALL_CAPS,
     )
-    assert text2svg(t_info) == 0
+    assert text2svg(t_info) == 1
     t_info = TextInfo(
         "Random Nice",
         "some1.svg",
@@ -37,7 +37,7 @@ def test_variant():
         font_size=60,
         font_variant=Variant.NORMAL,
     )
-    assert text2svg(t_info) == 0
+    assert text2svg(t_info) == 1
 
 def test_exceptions_file_handling():
     from text2svg import TextInfo,text2svg
@@ -50,7 +50,7 @@ def test_exceptions_file_handling():
             45,
             45,
         )
-        assert text2svg(t_info) == 0
+        assert text2svg(t_info) == 1
         assert save_locatiion.exists()
         os.chmod(save_locatiion, 0o444)
         
