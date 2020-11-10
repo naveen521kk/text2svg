@@ -61,11 +61,15 @@ cdef extern from "pango/pango-font.h":
         PANGO_WEIGHT_ULTRABOLD
         PANGO_WEIGHT_HEAVY
         PANGO_WEIGHT_ULTRAHEAVY
+    ctypedef enum PangoVariant:
+        PANGO_VARIANT_NORMAL
+        PANGO_VARIANT_SMALL_CAPS
     PangoFontDescription* pango_font_description_new()
     void pango_font_description_set_size(PangoFontDescription* desc,gint size)
     void pango_font_description_set_family(PangoFontDescription* desc,const char* family)
     void pango_font_description_set_style(PangoFontDescription* desc,PangoStyle style)
     void pango_font_description_set_weight (PangoFontDescription* desc,PangoWeight weight)
+    void pango_font_description_set_variant (PangoFontDescription* desc,PangoVariant variant);
 cdef extern from "pango/pangocairo.h":
     PangoLayout* pango_cairo_create_layout(cairo_t* cr)
     void pango_cairo_show_layout (cairo_t* cr,PangoLayout* layout)

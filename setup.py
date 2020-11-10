@@ -72,7 +72,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="text2svg",
-    version="0.1.0",
+    version="0.2.0",
     author="Naveen M K",
     author_email="naveen@syrusdark.website",
     description="Convert text to SVG file.",

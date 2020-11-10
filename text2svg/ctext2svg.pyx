@@ -32,25 +32,55 @@
 cimport ctext2svg
 import warnings
 from pathlib import Path
+from enum import Enum
 
-# See Pango's documentation for more information about these enums.
-cpdef enum font_style:
-    STYLE_NORMAL = PANGO_STYLE_NORMAL
+class Style(Enum):
+    """An enumeration specifying the various slant styles possible for a font.
+    """
+    NORMAL = PANGO_STYLE_NORMAL
+    """the font is upright."""
     ITALIC = PANGO_STYLE_ITALIC
+    """the font is slanted, but in a roman style."""
     OBLIQUE = PANGO_STYLE_OBLIQUE
+    """the font is slanted in an italic style."""
 
-cpdef enum font_weight:
-    WEIGHT_NORMAL = PANGO_WEIGHT_NORMAL
+class Weight(Enum):
+    """An enumeration specifying the weight (boldness) of a font.
+    This is a numerical value ranging from 100 to 1000, but there are some predefined values
+    Using numerical value other then that defined here is not supported.
+    """
+    # TODO: Support numerical values also
+    NORMAL = PANGO_WEIGHT_NORMAL
+    """the default weight (= 400)"""
     BOLD = PANGO_WEIGHT_BOLD
+    """the bold weight( = 700)"""
     THIN = PANGO_WEIGHT_THIN
+    """the thin weight( = 100; Since: 1.24)"""
     ULTRALIGHT = PANGO_WEIGHT_ULTRALIGHT
+    """the ultralight weight( = 200)"""
     LIGHT = PANGO_WEIGHT_LIGHT
+    """the light weight( = 300)"""
     BOOK = PANGO_WEIGHT_BOOK
+    """the book weight( = 380; Since: 1.24)"""
     MEDIUM = PANGO_WEIGHT_MEDIUM
+    """the normal weight( = 500; Since: 1.24)"""
     SEMIBOLD = PANGO_WEIGHT_SEMIBOLD
+    """the semibold weight( = 600)"""
     ULTRABOLD = PANGO_WEIGHT_ULTRABOLD
+    """the ultrabold weight( = 800)"""
     HEAVY = PANGO_WEIGHT_HEAVY
+    """the heavy weight( = 900)"""
     ULTRAHEAVY = PANGO_WEIGHT_ULTRAHEAVY
+    """the ultraheavy weight( = 1000; Since: 1.24)"""
+
+class Variant(Enum):
+    """An enumeration specifying capitalization variant of the font.
+    """
+    NORMAL = PANGO_VARIANT_NORMAL
+    """A normal font."""
+    SMALL_CAPS = PANGO_VARIANT_SMALL_CAPS
+    """A font with the lower case characters replaced by smaller variants
+    of the capital characters."""
 
 class TextInfo:
     """This is the class which validates the arguments passed. 
@@ -68,12 +98,15 @@ class TextInfo:
         The height of the SVG.
     font_size : :class:`int`
         Size of font to write.
-    font_style : :class:`font_style`
+    font_style : :enum:`Style`
         The style of font. Should be one from the defined 
         enum.
-    font_weight : :class:`font_weight`
+    font_weight : :enum:`Weight`
         The Weight of Font. Should be one from the defined 
         enums.
+    font_variant : :enum:`Variant`
+        An enumeration specifying capitalization variant of the font.
+        Should be from the one defined.
     font : :class:`str`
         The font which the text must use.
 
@@ -108,9 +141,10 @@ class TextInfo:
         width:int, 
         height:int, 
         font_size:int=10, 
-        font_style:font_style = STYLE_NORMAL, 
-        font_weight:font_weight = WEIGHT_NORMAL,
-        font:str="sans",
+        font_style:Style = Style.NORMAL, 
+        font_weight:Weight = Weight.NORMAL,
+        font_variant:Variant = Variant.NORMAL,
+        font:str="Sans",
         START_X:float=0,
         START_Y:float=0
     ):
@@ -130,8 +164,9 @@ class TextInfo:
             warnings.warn("Height is set to zero. Which would mean, you would be having a empty file.")
         self.height=height
         self.font_size=font_size
-        self.font_style=font_style
-        self.font_weight=font_weight
+        self.font_style=font_style.value
+        self.font_weight=font_weight.value
+        self.font_variant=font_variant.value
         self.font=font.encode()
         self.START_X=START_X
         self.START_Y=START_Y
@@ -180,11 +215,13 @@ def text2svg(text_info:TextInfo) -> int:
 
     pango_layout_set_width(layout, pango_units_from_double(width_layout))
     font_desc = pango_font_description_new()
+    if font_desc==NULL:
+        raise MemoryError("Pango.FontDesc can't be created.")
     pango_font_description_set_size(font_desc, pango_units_from_double(font_size_c))
     pango_font_description_set_family(font_desc, text_info.font)
     pango_font_description_set_style(font_desc, text_info.font_style)
     pango_font_description_set_weight(font_desc, text_info.font_weight)
-
+    pango_font_description_set_variant(font_desc, text_info.font_variant)
     pango_layout_set_font_description(layout, font_desc)
 
     pango_layout_set_text(layout, text_info.text, -1)
