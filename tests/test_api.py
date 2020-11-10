@@ -53,8 +53,9 @@ def test_exceptions_file_handling():
         assert text2svg(t_info) == 0
         assert save_locatiion.exists()
         os.chmod(save_locatiion, 0o444)
+        
         try:
             text2svg(t_info)
         except Exception as e:
-            assert e==Exception(b'error while writing to output stream')
-
+            assert str(e)==str(Exception(b'error while writing to output stream'))
+        os.chmod(save_locatiion,0o644)
