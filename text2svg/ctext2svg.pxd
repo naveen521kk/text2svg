@@ -35,26 +35,13 @@ cdef extern from "cairo.h":
         CAIRO_STATUS_NO_MEMORY
     cairo_status_t cairo_status (cairo_t *cr)
     const char* cairo_status_to_string (cairo_status_t status)
+
 cdef extern from "cairo-svg.h":
     cairo_surface_t* cairo_svg_surface_create(const char* filename,double	width_in_points,double	height_in_points)
 
-cdef extern from "pango/pango.h":
-    int PANGO_SCALE
-    int pango_units_from_double(double d)
-    ctypedef struct PangoLayout:
-        pass
+cdef extern from "pango/pango-font.h":
     ctypedef struct PangoFontDescription:
         pass
-    ctypedef struct PangoFontMap:
-        pass
-    ctypedef struct PangoContext:
-        pass
-
-    void pango_layout_set_width(PangoLayout* layout,int width)
-    void pango_layout_set_font_description (PangoLayout* layout, const PangoFontDescription* desc)
-    void pango_layout_set_text (PangoLayout* layout,const char* text,int length)
-
-    
     ctypedef enum PangoStyle:
         PANGO_STYLE_NORMAL
         PANGO_STYLE_OBLIQUE
@@ -74,21 +61,33 @@ cdef extern from "pango/pango.h":
     ctypedef enum PangoVariant:
         PANGO_VARIANT_NORMAL
         PANGO_VARIANT_SMALL_CAPS
-    ctypedef enum cairo_font_type_t:
-        CAIRO_FONT_TYPE_FT
-
-
     PangoFontDescription* pango_font_description_new()
     void pango_font_description_set_size(PangoFontDescription* desc,gint size)
     void pango_font_description_set_family(PangoFontDescription* desc,const char* family)
     void pango_font_description_set_style(PangoFontDescription* desc,PangoStyle style)
     void pango_font_description_set_weight (PangoFontDescription* desc,PangoWeight weight)
-    void pango_font_description_set_variant (PangoFontDescription* desc,PangoVariant variant);
+    void pango_font_description_set_variant (PangoFontDescription* desc,PangoVariant variant)
 
+
+cdef extern from "pango/pango-layout.h":
+    ctypedef struct PangoLayout:
+        pass
+    void pango_layout_set_width(PangoLayout* layout,int width)
+    void pango_layout_set_font_description (PangoLayout* layout, const PangoFontDescription* desc)
+    void pango_layout_set_text (PangoLayout* layout,const char* text,int length)
+
+cdef extern from "pango/pangofc-fontmap.h":
+    ctypedef struct PangoFontMap:
+        pass
+
+cdef extern from "pango/pangocairo.h":
+    ctypedef struct PangoContext:
+        pass
+    ctypedef enum cairo_font_type_t:
+        CAIRO_FONT_TYPE_FT
     PangoLayout * pango_cairo_create_layout(cairo_t* cr)
-    void pango_cairo_show_layout (cairo_t* cr,PangoLayout* layout)
+    void pango_cairo_show_layout(cairo_t* cr,PangoLayout* layout)
     PangoFontMap * pango_cairo_font_map_new_for_font_type(cairo_font_type_t fonttype)
-    
     PangoContext * pango_font_map_create_context (PangoFontMap* fontmap)
     PangoLayout * pango_layout_new (PangoContext *context)
 
@@ -98,3 +97,7 @@ cdef extern from "fontconfig/fontconfig.h":
         pass
     FcBool FcConfigAppFontAddFile(FcConfig* config, const char* file_name)
     FcConfig* FcConfigGetCurrent()
+
+cdef extern from "pango/pango-types.h":
+    int PANGO_SCALE
+    int pango_units_from_double(double d)
