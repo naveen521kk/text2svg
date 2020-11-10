@@ -185,6 +185,7 @@ def text2svg(text_info:TextInfo) -> int:
     =======
     :class:`int`
         Either 0 or 1
+        1 means it worked without any error.
 
     Examples
     --------
@@ -265,9 +266,28 @@ def text2svg(text_info:TextInfo) -> int:
     g_object_unref(mPangoContext)
     g_object_unref(layout)
 
-    return 0
+    return 1
 
 def register_font(font_path:str):
+    """This function registers the font file using ``fontconfig`` so that
+    it is available for use by Pango.
+    
+    Parameters
+    ==========
+    font_path : :class:`str`
+        Relative or absolute path to font file.
+    
+    Returns
+    =======
+    :class:`int`
+        Either 0 or 1
+        1 means it worked without any error.
+
+    Examples
+    --------
+    >>> register_font("/home/roboto.tff")
+    1
+    """
     a=Path(font_path)
     assert a.exists(), "font doesn't exists"
     font_path = str(a.absolute())
@@ -275,6 +295,6 @@ def register_font(font_path:str):
     cdef char* fontPath = font_path_bytes
     fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath)
     if fontAddStatus:
-        print("Added Font config Font %s"%font_path)
+        return 1
     else:
         raise TypeError("Could not load font from file %s"%fontPath)
