@@ -220,7 +220,7 @@ def text2svg(text_info:TextInfo) -> int:
 
     mPangoFontMap = pango_cairo_font_map_new_for_font_type(CAIRO_FONT_TYPE_FT)
     if mPangoFontMap == NULL:
-        raise Exception("Cairo is not Compiled with Fontconfig Enabled.")
+        raise Exception("Cairo is not Compiled with Fontconfig and FreetType Enabled.")
     mPangoContext = pango_font_map_create_context(mPangoFontMap)
     layout = pango_layout_new(mPangoContext)
     #layout = pango_cairo_create_layout(cr)
@@ -268,6 +268,9 @@ def text2svg(text_info:TextInfo) -> int:
     return 0
 
 def register_font(font_path:str):
+    a=Path(font_path)
+    assert a.exists(), "font doesn't exists"
+    font_path = str(a.absolute())
     font_path_bytes=font_path.encode()
     cdef char* fontPath = font_path_bytes
     fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath)
