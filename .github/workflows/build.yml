@@ -64,7 +64,6 @@ jobs:
 
       - name: Build wheels (Non-Windows)
         if: runner.os != 'windows'
-        continue-on-error: true
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
