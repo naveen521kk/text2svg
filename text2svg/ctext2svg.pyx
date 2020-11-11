@@ -51,11 +51,8 @@ class Style(Enum):
         the font is slanted in an italic style.
     """
     NORMAL = PANGO_STYLE_NORMAL
-    """the font is upright."""
     ITALIC = PANGO_STYLE_ITALIC
-    """the font is slanted, but in a roman style."""
     OBLIQUE = PANGO_STYLE_OBLIQUE
-    """the font is slanted in an italic style."""
 
 class Weight(Enum):
     """

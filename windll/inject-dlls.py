@@ -12,13 +12,19 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser(description="Inject DLLs into a Windows binary wheel")
 parser.add_argument(
-    "wheel", type=str, help="the source wheel to which DLLs should be added",
+    "wheel",
+    type=str,
+    help="the source wheel to which DLLs should be added",
 )
 parser.add_argument(
-    "dest_dir", type=str, help="the directory where to create the repaired wheel",
+    "dest_dir",
+    type=str,
+    help="the directory where to create the repaired wheel",
 )
 parser.add_argument(
-    "dll_dir", type=str, help="the directory containing the DLLs",
+    "dll_dir",
+    type=str,
+    help="the directory containing the DLLs",
 )
 
 args = parser.parse_args()
@@ -30,15 +36,15 @@ temp_dir = Path(tempfile.mkdtemp())
 
 logging.basicConfig(level=logging.DEBUG)
 logging.info("Extracting '%s' to '%s'", args.wheel, temp_dir)
-unpack(args.wheel,str(temp_dir))
+unpack(args.wheel, str(temp_dir))
 
 logging.info("Adding DLLs from '%s' to package '%s'", args.dll_dir, package_name)
 
-dll_dir=Path(args.dll_dir)
-archive_path=temp_dir / f"{package_name}-{version_number}" / package_name
+dll_dir = Path(args.dll_dir)
+archive_path = temp_dir / f"{package_name}-{version_number}" / package_name
 
 for local_path in dll_dir.glob("*.dll"):
     logging.info("Copying '%s' to '%s'", local_path, archive_path)
-    shutil.copy(local_path,archive_path)
-package_directory= temp_dir / f"{package_name}-{version_number}"
-pack(str(package_directory),args.dest_dir,None)
+    shutil.copy(local_path, archive_path)
+package_directory = temp_dir / f"{package_name}-{version_number}"
+pack(str(package_directory), args.dest_dir, None)
