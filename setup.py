@@ -8,7 +8,6 @@ from Cython.Build import cythonize
 from Cython.Compiler import Options
 from setuptools import Extension, setup, find_packages
 
-Options.embed_pos_in_docstring = True
 
 _cflag_parser = argparse.ArgumentParser(add_help=False)
 _cflag_parser.add_argument("-I", dest="include_dirs", action="append")

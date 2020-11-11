@@ -35,7 +35,20 @@ from pathlib import Path
 from enum import Enum
 
 class Style(Enum):
-    """An enumeration specifying the various slant styles possible for a font.
+    """
+    An enumeration specifying the various slant styles possible for a font.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        the font is upright.
+    
+    ITALIC :
+        the font is slanted, but in a roman style.
+    
+    OBLIQUE:
+        the font is slanted in an italic style.
     """
     NORMAL = PANGO_STYLE_NORMAL
     """the font is upright."""
@@ -45,13 +58,14 @@ class Style(Enum):
     """the font is slanted in an italic style."""
 
 class Weight(Enum):
-    """An enumeration specifying the weight (boldness) of a font.
+    """
+    An enumeration specifying the weight (boldness) of a font.
     This is a numerical value ranging from 100 to 1000, but there are some predefined values
     Using numerical value other then that defined here is not supported.
     """
     # TODO: Support numerical values also
-    NORMAL = PANGO_WEIGHT_NORMAL
     """the default weight (= 400)"""
+    NORMAL = PANGO_WEIGHT_NORMAL
     BOLD = PANGO_WEIGHT_BOLD
     """the bold weight( = 700)"""
     THIN = PANGO_WEIGHT_THIN
@@ -74,7 +88,8 @@ class Weight(Enum):
     """the ultraheavy weight( = 1000; Since: 1.24)"""
 
 class Variant(Enum):
-    """An enumeration specifying capitalization variant of the font.
+    """
+    An enumeration specifying capitalization variant of the font.
     """
     NORMAL = PANGO_VARIANT_NORMAL
     """A normal font."""
@@ -83,8 +98,9 @@ class Variant(Enum):
     of the capital characters."""
 
 class TextInfo:
-    """This is the class which validates the arguments passed. 
-    This must be passed to :py:`text2svg`.
+    """
+    This is the class which validates the arguments passed. 
+    This must be passed to :func:`text2svg`.
 
     Parameters
     ----------
@@ -98,13 +114,13 @@ class TextInfo:
         The height of the SVG.
     font_size : :class:`int`
         Size of font to write.
-    font_style : :enum:`Style`
+    font_style : :class:`Style`
         The style of font. Should be one from the defined 
         enum.
-    font_weight : :enum:`Weight`
+    font_weight : :class:`Weight`
         The Weight of Font. Should be one from the defined 
         enums.
-    font_variant : :enum:`Variant`
+    font_variant : :class:`Variant`
         An enumeration specifying capitalization variant of the font.
         Should be from the one defined.
     font : :class:`str`
@@ -112,8 +128,9 @@ class TextInfo:
 
         .. important ::
 
-                This font must be installed in the system and ``tff``
-                files aren't supported.
+                This font must be installed in the system or registered
+                using :func:`register_font`
+
     START_X : :class:`float`
         Where to move the ``Cairo.Context`` before writing?
         Specify the x-coordinate here. Also, please see
@@ -132,6 +149,23 @@ class TextInfo:
     --------
     >>> TextInfo("Hello World","hello.svg",50,50)
     TextInfo(b'Hello World')
+
+    Raises
+    ------
+
+    AssertionError
+        If the file name doesn't ends with ``.svg``.
+
+    ValueError
+        If the directory you are trying to create the
+        file doesn't exists
+
+    Warns
+    -----
+
+    Filename exits already.
+    Width set to zero.
+    Height set to zero.
 
     """
     def __init__(
@@ -174,12 +208,14 @@ class TextInfo:
         return f"TextInfo({self.text})"
 
 def text2svg(text_info:TextInfo) -> int:
-    """This is the only function which is converted. 
+    """
+    This is the main function which actually converts 
+    the :class:`TextInfo` to an SVG file.
 
     Parameters
     ==========
     text_info : :class:`TextInfo`
-        The returned value from :class:`TextInfo``.
+        The returned value from :class:`TextInfo`.
     
     Returns
     =======
@@ -191,6 +227,14 @@ def text2svg(text_info:TextInfo) -> int:
     --------
     >>> text2svg(TextInfo("Hello World","hello.svg",50,50))
     0
+
+    Raises
+    ------
+
+    MemoryError
+        When ran out of Memory.
+    Exception
+        When ``cairo.Context`` returns any error this is raised.
     """
     if not isinstance(text_info,TextInfo):
         raise ValueError("text_info is not a instance of TextInfo")
@@ -281,12 +325,21 @@ def register_font(font_path:str):
     =======
     :class:`int`
         Either 0 or 1
-        1 means it worked without any error.
+        
+        .. note ::
+            
+            1 means it worked without any error.
 
     Examples
     --------
     >>> register_font("/home/roboto.tff")
     1
+
+    Raises
+    ------
+
+    TypeError
+        If the font couldn't be loaded due to various reasons.
     """
     a=Path(font_path)
     assert a.exists(), "font doesn't exists"

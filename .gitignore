@@ -141,3 +141,4 @@ cython_debug/
 *.cbp
 *.json
 *.svg
+docs/source/reference
