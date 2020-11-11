@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -17,12 +18,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'text2svg'
-copyright = '2020, Naveen M K'
-author = 'Naveen M K'
+project = "text2svg"
+copyright = "2020, Naveen M K"
+author = "Naveen M K"
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -36,14 +37,14 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinxext.opengraph",
-    "sphinx_rtd_theme"
+    "sphinx_rtd_theme",
 ]
 
 # Automatically generate stub pages when using the .. autosummary directive
 autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -56,13 +57,13 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
-#ogp_image = "" #TODO: create a logo
+# ogp_image = "" #TODO: create a logo
 ogp_site_name = "Text2SVG | Documentation"
 ogp_site_url = "https://text2svg.readthedocs.io/"

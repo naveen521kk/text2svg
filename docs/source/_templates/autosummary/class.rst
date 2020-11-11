@@ -17,5 +17,3 @@
       {%- endfor %}
    {%- endif %}
    {%- endblock %}
-
-

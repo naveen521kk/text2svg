@@ -9,7 +9,7 @@ Welcome to text2svg's documentation!
 .. toctree::
    :maxdepth: 6
    :caption: Contents:
-   
+
    examples
    reference
 

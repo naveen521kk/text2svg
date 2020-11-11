@@ -18,14 +18,14 @@
     ctext2svg.pyx
     ~~~~~~~~~~~~~
 
-    This is the core module. Exports some function 
+    This is the core module. Exports some function
     which help in converting ``text`` to ``.svg`` files.
 
     The backend here is Pango and Cairo. This is a small
-    implementation of those libraries with the help of 
+    implementation of those libraries with the help of
     Cython.
 
-    :copyright: Copyright 2020 by Naveen M K 
+    :copyright: Copyright 2020 by Naveen M K
     :licence: GPLv3, See LICENSE for details.
 
 """
@@ -43,10 +43,10 @@ class Style(Enum):
 
     NORMAL :
         the font is upright.
-    
+
     ITALIC :
         the font is slanted, but in a roman style.
-    
+
     OBLIQUE:
         the font is slanted in an italic style.
     """
@@ -96,7 +96,7 @@ class Variant(Enum):
 
 class TextInfo:
     """
-    This is the class which validates the arguments passed. 
+    This is the class which validates the arguments passed.
     This must be passed to :func:`text2svg`.
 
     Parameters
@@ -112,10 +112,10 @@ class TextInfo:
     font_size : :class:`int`
         Size of font to write.
     font_style : :class:`Style`
-        The style of font. Should be one from the defined 
+        The style of font. Should be one from the defined
         enum.
     font_weight : :class:`Weight`
-        The Weight of Font. Should be one from the defined 
+        The Weight of Font. Should be one from the defined
         enums.
     font_variant : :class:`Variant`
         An enumeration specifying capitalization variant of the font.
@@ -167,12 +167,12 @@ class TextInfo:
     """
     def __init__(
         self,
-        text: str, 
+        text: str,
         filename:str,
-        width:int, 
-        height:int, 
-        font_size:int=10, 
-        font_style:Style = Style.NORMAL, 
+        width:int,
+        height:int,
+        font_size:int=10,
+        font_style:Style = Style.NORMAL,
         font_weight:Weight = Weight.NORMAL,
         font_variant:Variant = Variant.NORMAL,
         font:str="Sans",
@@ -206,14 +206,14 @@ class TextInfo:
 
 def text2svg(text_info:TextInfo) -> int:
     """
-    This is the main function which actually converts 
+    This is the main function which actually converts
     the :class:`TextInfo` to an SVG file.
 
     Parameters
     ==========
     text_info : :class:`TextInfo`
         The returned value from :class:`TextInfo`.
-    
+
     Returns
     =======
     :class:`int`
@@ -244,7 +244,7 @@ def text2svg(text_info:TextInfo) -> int:
     cdef double font_size_c=text_info.font_size
     cdef cairo_status_t status
     cdef PangoFontMap* mPangoFontMap
-    cdef PangoContext* mPangoContext 
+    cdef PangoContext* mPangoContext
     surface = cairo_svg_surface_create(text_info.filename, text_info.width, text_info.height)
     if surface == NULL:
         raise MemoryError("Cairo.SVGSurface can't be created.")
@@ -300,7 +300,7 @@ def text2svg(text_info:TextInfo) -> int:
         cairo_surface_destroy(surface)
         g_object_unref(layout)
         raise Exception(cairo_status_to_string(status).decode())
-    
+
     cairo_destroy(cr)
     cairo_surface_destroy(surface)
     g_object_unref(mPangoFontMap)
@@ -312,19 +312,19 @@ def text2svg(text_info:TextInfo) -> int:
 def register_font(font_path:str):
     """This function registers the font file using ``fontconfig`` so that
     it is available for use by Pango.
-    
+
     Parameters
     ==========
     font_path : :class:`str`
         Relative or absolute path to font file.
-    
+
     Returns
     =======
     :class:`int`
         Either 0 or 1
-        
+
         .. note ::
-            
+
             1 means it worked without any error.
 
     Examples

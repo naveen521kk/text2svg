@@ -1,16 +1,18 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import argparse
 import logging
 import os
 import shutil
-import zipfile
 from wheel.cli.unpack import unpack
 from wheel.cli.pack import pack
 import tempfile
 from pathlib import Path
 
-parser = argparse.ArgumentParser(description="Inject DLLs into a Windows binary wheel")
+parser = argparse.ArgumentParser(
+    description="Inject DLLs into a Windows binary wheel",
+)
 parser.add_argument(
     "wheel",
     type=str,
@@ -38,7 +40,11 @@ logging.basicConfig(level=logging.DEBUG)
 logging.info("Extracting '%s' to '%s'", args.wheel, temp_dir)
 unpack(args.wheel, str(temp_dir))
 
-logging.info("Adding DLLs from '%s' to package '%s'", args.dll_dir, package_name)
+logging.info(
+    "Adding DLLs from '%s' to package '%s'",
+    args.dll_dir,
+    package_name,
+)
 
 dll_dir = Path(args.dll_dir)
 archive_path = temp_dir / f"{package_name}-{version_number}" / package_name

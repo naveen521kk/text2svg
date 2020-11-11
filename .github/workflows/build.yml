@@ -75,7 +75,7 @@ jobs:
         if: ${{  github.event_name== 'release' && runner.os == 'Linux' }}
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }} 
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           pip install twine
           python setup.py sdist
@@ -84,11 +84,9 @@ jobs:
         if: github.event_name == 'release'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }} 
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           pip install twine
           twine upload wheelhouse/*.whl
           twine upload wheelhouse/*.whl
           twine upload wheelhouse/*.whl
-          
-

@@ -1,15 +1,14 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import logging
 import os
+import re
 import shutil
-import sys
+import struct
+import tempfile
 import zipfile
 from pathlib import Path
-from urllib.request import urlretrieve
 from urllib.request import urlretrieve as download
-import tempfile
-import struct
-import re
 
 
 def get_platform():
@@ -19,6 +18,7 @@ def get_platform():
         return "amd64"
 
 
+download_url = "https://ci.appveyor.com/api/projects/naveen521kk/pango-cairo-build/artifacts/pango-cairo-build.zip?job=image:%20Visual%20Studio%202017"  # noqa: E501
 logging.basicConfig(format="%(levelname)s - %(message)s", level=logging.DEBUG)
 
 final_location = Path(r"C:\cibw\vendor")
@@ -30,16 +30,17 @@ if final_location.exists():
 os.makedirs(final_location)
 download_file = download_location / "build.zip"
 logging.info("Downloading Pango and Cairo Binaries for Windows...")
-download(
-    url="https://ci.appveyor.com/api/projects/naveen521kk/pango-cairo-build/artifacts/pango-cairo-build.zip?job=image:%20Visual%20Studio%202017",
-    filename=download_file,
-)
+download(url=download_url, filename=download_file)
 logging.info(f"Download complete. Saved to {download_file}.")
 logging.info(f"Extracting {download_file} to {download_location}...")
-with zipfile.ZipFile(download_file, mode="r", compression=zipfile.ZIP_DEFLATED) as file:
+with zipfile.ZipFile(
+    download_file, mode="r", compression=zipfile.ZIP_DEFLATED
+) as file:  # noqa :E501
     file.extractall(download_location)
 os.remove(download_file)
-shutil.move(str(download_location / "build" / "pkg-config"), str(final_location))
+shutil.move(
+    str(download_location / "build" / "pkg-config"), str(final_location)
+)  # noqa E501
 logging.info("Completed Extracting.")
 plat = get_platform()
 logging.debug(f"Found Platform as {plat}")
@@ -50,7 +51,7 @@ for src_file in plat_location.glob("*"):
     shutil.move(str(src_file), str(final_location))
 logging.info("Moving files Completed")
 logging.info("Fixing .pc files")
-import re
+
 
 rex = re.compile("^prefix=(.*)")
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import argparse
 import shlex
 from pathlib import Path
@@ -5,7 +6,6 @@ from shlex import quote
 from subprocess import PIPE, Popen
 
 from Cython.Build import cythonize
-from Cython.Compiler import Options
 from setuptools import Extension, setup, find_packages
 
 
@@ -45,7 +45,12 @@ def get_library_config(name):
     raw_cflags, _ = proc.communicate()
     known, unknown = parse_cflags(raw_cflags.decode("utf8"))
     if unknown:
-        print("pkg-config returned flags we don't understand: {}".format(unknown))
+        print(
+            "pkg-config returned flags we \
+            don't understand: {}".format(
+                unknown
+            )
+        )
     return known
 
 
