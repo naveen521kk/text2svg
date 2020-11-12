@@ -65,7 +65,7 @@ html_favicon = str(Path("_static/favicon.ico"))
 html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
-    "base_url": "https://text2svg.syrusdark.website",
+    "base_url": "https://text2svg.syrusdark.website/",
     "color_primary": "red",
     "color_accent": "green",
     "theme_color": "E86342",
