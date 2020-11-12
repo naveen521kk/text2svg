@@ -93,7 +93,7 @@ html_sidebars = {
     "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
 }
 
-ogp_image = "https://text2svg.syrusdark.website/_static/logo.svg"
+ogp_image = "https://text2svg.syrusdark.website/_static/logo.png"
 ogp_site_name = "Text2SVG | Documentation"
 ogp_site_url = "https://text2svg.readthedocs.io/"
 
