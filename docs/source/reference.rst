@@ -8,3 +8,8 @@ Reference
    :toctree: reference
 
    ~ctext2svg
+   ~text2svg
+   ~TextInfo
+   ~Variant
+   ~Weight
+   ~Style

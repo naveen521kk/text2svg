@@ -17,8 +17,9 @@
 
 
 # -- Project information -----------------------------------------------------
+from pathlib import Path
 
-project = "text2svg"
+project = "Text2SVG"
 copyright = "2020, Naveen M K"
 author = "Naveen M K"
 
@@ -58,14 +59,29 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = "sphinx_material"
-
+html_baseurl = "https://text2svg.syrusdark.website"
+html_logo = str(Path("_static/logo.png"))
+html_favicon = str(Path("_static/favicon.ico"))
+html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
     "base_url": "https://text2svg.syrusdark.website",
-    "color_primary": "blue",
-    "color_accent": "light-blue",
+    "color_primary": "orange",
+    "color_accent": "red",
+    "theme_color": "E86342",
     "repo_url": "https://github.com/naveen521kk/text2svg",
-    "repo_name": "text2svg",
+    "repo_name": "Text2SVG",
+    "html_minify": True,
+    "css_minify": True,
+    "logo_icon": "edit",
+    "globaltoc_depth": 2,
+    "nav_links": [{"href": "/reference.html", "title": "Reference", "internal": True}],
+    "heroes": {
+        "index": "Convert Text to SVG files easily.",
+        "reference": "Python API reference",
+        "install": "Installing Text2SVG",
+    },
+    "touch_icon": "apple-touch-icon.png",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -73,6 +89,12 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-# ogp_image = "" #TODO: create a logo
+html_sidebars = {
+    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
+}
+
+ogp_image = "https://text2svg.syrusdark.website/_static/logo.svg"
 ogp_site_name = "Text2SVG | Documentation"
 ogp_site_url = "https://text2svg.readthedocs.io/"
+
+latex_logo = str(Path("_static/logo.png"))
