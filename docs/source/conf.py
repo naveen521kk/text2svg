@@ -66,8 +66,8 @@ html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
     "base_url": "https://text2svg.syrusdark.website",
-    "color_primary": "orange",
-    "color_accent": "red",
+    "color_primary": "red",
+    "color_accent": "green",
     "theme_color": "E86342",
     "repo_url": "https://github.com/naveen521kk/text2svg",
     "repo_name": "Text2SVG",
@@ -89,9 +89,7 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-html_sidebars = {
-    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
-}
+html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "searchbox.html"]}
 
 ogp_image = "https://text2svg.syrusdark.website/_static/logo.png"
 ogp_site_name = "Text2SVG | Documentation"
