@@ -9,7 +9,7 @@ Text2SVG - Convert Text to SVG file
 This project uses Pango, Cairo and FreeType which are written in C, and
 wrapped using Cython.
 
-See :doc:`examples: for some example of how to.
+See :doc:`examples` for some example of how to.
 
 .. toctree::
    :maxdepth: 3
