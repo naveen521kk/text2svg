@@ -7,4 +7,4 @@ Reference
 .. autosummary::
    :toctree: reference
 
-    ~ctext2svg
+   ~ctext2svg
