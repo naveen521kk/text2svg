@@ -37,7 +37,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinxext.opengraph",
-    "sphinx_rtd_theme",
+    "sphinx_material",
 ]
 
 # Automatically generate stub pages when using the .. autosummary directive
@@ -57,7 +57,16 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_material"
+
+html_theme_options = {
+    "nav_title": "Text2SVG",
+    "base_url": "https://text2svg.syrusdark.website",
+    "color_primary": "blue",
+    "color_accent": "light-blue",
+    "repo_url": "https://github.com/naveen521kk/text2svg",
+    "repo_name": "text2svg",
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
