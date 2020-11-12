@@ -2,7 +2,6 @@ name: Test text2svg
 
 on:
   push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
