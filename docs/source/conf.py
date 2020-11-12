@@ -75,7 +75,7 @@ html_theme_options = {
     "css_minify": True,
     "logo_icon": "edit",
     "globaltoc_depth": 2,
-    "nav_links": [{"href": "/reference.html", "title": "Reference", "internal": True}],
+    "nav_links": [{"href": "/reference", "title": "Reference", "internal": True}],
     "heroes": {
         "index": "Convert Text to SVG files easily.",
         "reference": "Python API reference",
