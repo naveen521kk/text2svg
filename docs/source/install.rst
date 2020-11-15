@@ -31,3 +31,13 @@ Then installing no binary version will work.
 .. code-block:: sh
 
 	pip install text2svg --no-binary :all:
+
+Linux
+*****
+
+Install Cairo and Pango along with dev headers and also pkg-config.
+Using no-binary install is recommended.
+
+.. code-block:: sh
+
+	pip install text2svg --no-binary :all:
