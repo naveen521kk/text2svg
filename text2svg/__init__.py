@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # text2svg, Convert text to SVG files.
 # Copyright (C) 2020 Naveen M K
 #
@@ -19,13 +20,20 @@
 
     Initialisation of the module is done here.
 
-    :copyright: Copyright 2020 by Naveen M K 
+    :copyright: Copyright 2020 by Naveen M K
     :licence: GPLv3, See LICENSE for details.
 
 """
 import os
-from .__version__ import *
-if os.name == 'nt':
-    os.environ['PATH'] = os.path.abspath(os.path.dirname(__file__)) + os.pathsep + os.environ['PATH']
+from .__version__ import *  # noqa: F401,F403
 
-from .ctext2svg import *
+if os.name == "nt":
+    os.environ["PATH"] = (
+        os.path.abspath(os.path.dirname(__file__))
+        + os.pathsep
+        + os.environ["PATH"]  # noqa: E501
+    )
+try:
+    from .ctext2svg import *  # noqa: F401,F403
+except ImportError:
+    raise ImportError("Couldn't load the necessary Shared Libraries.")

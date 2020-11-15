@@ -18,14 +18,14 @@
     ctext2svg.pyx
     ~~~~~~~~~~~~~
 
-    This is the core module. Exports some function 
+    This is the core module. Exports some function
     which help in converting ``text`` to ``.svg`` files.
 
     The backend here is Pango and Cairo. This is a small
-    implementation of those libraries with the help of 
+    implementation of those libraries with the help of
     Cython.
 
-    :copyright: Copyright 2020 by Naveen M K 
+    :copyright: Copyright 2020 by Naveen M K
     :licence: GPLv3, See LICENSE for details.
 
 """
@@ -35,56 +35,101 @@ from pathlib import Path
 from enum import Enum
 
 class Style(Enum):
-    """An enumeration specifying the various slant styles possible for a font.
+    """
+    An enumeration specifying the various slant styles possible for a font.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        the font is upright.
+
+    ITALIC :
+        the font is slanted, but in a roman style.
+
+    OBLIQUE:
+        the font is slanted in an italic style.
     """
     NORMAL = PANGO_STYLE_NORMAL
-    """the font is upright."""
     ITALIC = PANGO_STYLE_ITALIC
-    """the font is slanted, but in a roman style."""
     OBLIQUE = PANGO_STYLE_OBLIQUE
-    """the font is slanted in an italic style."""
 
 class Weight(Enum):
-    """An enumeration specifying the weight (boldness) of a font.
+    """
+    An enumeration specifying the weight (boldness) of a font.
     This is a numerical value ranging from 100 to 1000, but there are some predefined values
     Using numerical value other then that defined here is not supported.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        the default weight (= 400)
+
+    BOLD :
+        the bold weight( = 700)
+
+    THIN :
+        the thin weight( = 100; Since: 1.24)
+
+    ULTRALIGHT :
+        the ultralight weight( = 200)
+
+    LIGHT :
+        the light weight( = 300)
+
+    BOOK :
+        the book weight( = 380; Since: 1.24)
+
+    MEDIUM :
+        the normal weight( = 500; Since: 1.24)
+
+    SEMIBOLD :
+        the semibold weight( = 600)
+
+    ULTRABOLD :
+        the ultrabold weight( = 800)
+
+    HEAVY :
+        the heavy weight( = 900)
+
+    ULTRAHEAVY :
+        the ultraheavy weight( = 1000; Since: 1.24)
     """
     # TODO: Support numerical values also
     NORMAL = PANGO_WEIGHT_NORMAL
-    """the default weight (= 400)"""
     BOLD = PANGO_WEIGHT_BOLD
-    """the bold weight( = 700)"""
     THIN = PANGO_WEIGHT_THIN
-    """the thin weight( = 100; Since: 1.24)"""
     ULTRALIGHT = PANGO_WEIGHT_ULTRALIGHT
-    """the ultralight weight( = 200)"""
     LIGHT = PANGO_WEIGHT_LIGHT
-    """the light weight( = 300)"""
     BOOK = PANGO_WEIGHT_BOOK
-    """the book weight( = 380; Since: 1.24)"""
     MEDIUM = PANGO_WEIGHT_MEDIUM
-    """the normal weight( = 500; Since: 1.24)"""
     SEMIBOLD = PANGO_WEIGHT_SEMIBOLD
-    """the semibold weight( = 600)"""
     ULTRABOLD = PANGO_WEIGHT_ULTRABOLD
-    """the ultrabold weight( = 800)"""
     HEAVY = PANGO_WEIGHT_HEAVY
-    """the heavy weight( = 900)"""
     ULTRAHEAVY = PANGO_WEIGHT_ULTRAHEAVY
-    """the ultraheavy weight( = 1000; Since: 1.24)"""
 
 class Variant(Enum):
-    """An enumeration specifying capitalization variant of the font.
+    """
+    An enumeration specifying capitalization variant of the font.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        A normal font.
+
+    SMALL_CAPS :
+        A font with the lower case characters replaced by smaller variants
+        of the capital characters.
     """
     NORMAL = PANGO_VARIANT_NORMAL
-    """A normal font."""
     SMALL_CAPS = PANGO_VARIANT_SMALL_CAPS
-    """A font with the lower case characters replaced by smaller variants
-    of the capital characters."""
 
 class TextInfo:
-    """This is the class which validates the arguments passed. 
-    This must be passed to :py:`text2svg`.
+    """
+    This is the class which validates the arguments passed.
+    This must be passed to :func:`text2svg`.
 
     Parameters
     ----------
@@ -98,13 +143,13 @@ class TextInfo:
         The height of the SVG.
     font_size : :class:`int`
         Size of font to write.
-    font_style : :enum:`Style`
-        The style of font. Should be one from the defined 
+    font_style : :class:`Style`
+        The style of font. Should be one from the defined
         enum.
-    font_weight : :enum:`Weight`
-        The Weight of Font. Should be one from the defined 
+    font_weight : :class:`Weight`
+        The Weight of Font. Should be one from the defined
         enums.
-    font_variant : :enum:`Variant`
+    font_variant : :class:`Variant`
         An enumeration specifying capitalization variant of the font.
         Should be from the one defined.
     font : :class:`str`
@@ -112,8 +157,9 @@ class TextInfo:
 
         .. important ::
 
-                This font must be installed in the system and ``tff``
-                files aren't supported.
+                This font must be installed in the system or registered
+                using :func:`register_font`
+
     START_X : :class:`float`
         Where to move the ``Cairo.Context`` before writing?
         Specify the x-coordinate here. Also, please see
@@ -133,15 +179,32 @@ class TextInfo:
     >>> TextInfo("Hello World","hello.svg",50,50)
     TextInfo(b'Hello World')
 
+    Raises
+    ------
+
+    AssertionError
+        If the file name doesn't ends with ``.svg``.
+
+    ValueError
+        If the directory you are trying to create the
+        file doesn't exists
+
+    Warns
+    -----
+
+    Filename exits already.
+    Width set to zero.
+    Height set to zero.
+
     """
     def __init__(
         self,
-        text: str, 
+        text: str,
         filename:str,
-        width:int, 
-        height:int, 
-        font_size:int=10, 
-        font_style:Style = Style.NORMAL, 
+        width:int,
+        height:int,
+        font_size:int=10,
+        font_style:Style = Style.NORMAL,
         font_weight:Weight = Weight.NORMAL,
         font_variant:Variant = Variant.NORMAL,
         font:str="Sans",
@@ -174,13 +237,15 @@ class TextInfo:
         return f"TextInfo({self.text})"
 
 def text2svg(text_info:TextInfo) -> int:
-    """This is the only function which is converted. 
+    """
+    This is the main function which actually converts
+    the :class:`TextInfo` to an SVG file.
 
     Parameters
     ==========
     text_info : :class:`TextInfo`
-        The returned value from :class:`TextInfo``.
-    
+        The returned value from :class:`TextInfo`.
+
     Returns
     =======
     :class:`int`
@@ -191,6 +256,14 @@ def text2svg(text_info:TextInfo) -> int:
     --------
     >>> text2svg(TextInfo("Hello World","hello.svg",50,50))
     0
+
+    Raises
+    ------
+
+    MemoryError
+        When ran out of Memory.
+    Exception
+        When ``cairo.Context`` returns any error this is raised.
     """
     if not isinstance(text_info,TextInfo):
         raise ValueError("text_info is not a instance of TextInfo")
@@ -203,7 +276,7 @@ def text2svg(text_info:TextInfo) -> int:
     cdef double font_size_c=text_info.font_size
     cdef cairo_status_t status
     cdef PangoFontMap* mPangoFontMap
-    cdef PangoContext* mPangoContext 
+    cdef PangoContext* mPangoContext
     surface = cairo_svg_surface_create(text_info.filename, text_info.width, text_info.height)
     if surface == NULL:
         raise MemoryError("Cairo.SVGSurface can't be created.")
@@ -259,7 +332,7 @@ def text2svg(text_info:TextInfo) -> int:
         cairo_surface_destroy(surface)
         g_object_unref(layout)
         raise Exception(cairo_status_to_string(status).decode())
-    
+
     cairo_destroy(cr)
     cairo_surface_destroy(surface)
     g_object_unref(mPangoFontMap)
@@ -271,25 +344,34 @@ def text2svg(text_info:TextInfo) -> int:
 def register_font(font_path:str):
     """This function registers the font file using ``fontconfig`` so that
     it is available for use by Pango.
-    
+
     Parameters
     ==========
     font_path : :class:`str`
         Relative or absolute path to font file.
-    
+
     Returns
     =======
     :class:`int`
         Either 0 or 1
-        1 means it worked without any error.
+
+        .. note ::
+
+            1 means it worked without any error.
 
     Examples
     --------
     >>> register_font("/home/roboto.tff")
     1
+
+    Raises
+    ------
+
+    TypeError
+        If the font couldn't be loaded due to various reasons.
     """
     a=Path(font_path)
-    assert a.exists(), "font doesn't exists"
+    assert a.exists(), f"font doesn't exists at {a.absolute()}"
     font_path = str(a.absolute())
     font_path_bytes=font_path.encode()
     cdef char* fontPath = font_path_bytes

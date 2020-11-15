@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import argparse
 import shlex
 from pathlib import Path
@@ -5,10 +6,8 @@ from shlex import quote
 from subprocess import PIPE, Popen
 
 from Cython.Build import cythonize
-from Cython.Compiler import Options
 from setuptools import Extension, setup, find_packages
 
-Options.embed_pos_in_docstring = True
 
 _cflag_parser = argparse.ArgumentParser(add_help=False)
 _cflag_parser.add_argument("-I", dest="include_dirs", action="append")
@@ -46,7 +45,12 @@ def get_library_config(name):
     raw_cflags, _ = proc.communicate()
     known, unknown = parse_cflags(raw_cflags.decode("utf8"))
     if unknown:
-        print("pkg-config returned flags we don't understand: {}".format(unknown))
+        print(
+            "pkg-config returned flags we \
+            don't understand: {}".format(
+                unknown
+            )
+        )
     return known
 
 
@@ -78,9 +82,9 @@ setup(
     zip_safe=False,
     long_description_content_type="text/markdown",
     url="https://github.com/naveen521kk/text2svg",
-    license='GPL version 3',
+    license="GPL version 3",
     packages=find_packages(),
-    keywords=["cython","pango","cairo","svg"],
+    keywords=["cython", "pango", "cairo", "svg"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Development Status :: 3 - Alpha",
