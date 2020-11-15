@@ -59,40 +59,72 @@ class Weight(Enum):
     An enumeration specifying the weight (boldness) of a font.
     This is a numerical value ranging from 100 to 1000, but there are some predefined values
     Using numerical value other then that defined here is not supported.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        the default weight (= 400)
+
+    BOLD :
+        the bold weight( = 700)
+
+    THIN :
+        the thin weight( = 100; Since: 1.24)
+
+    ULTRALIGHT :
+        the ultralight weight( = 200)
+
+    LIGHT :
+        the light weight( = 300)
+
+    BOOK :
+        the book weight( = 380; Since: 1.24)
+
+    MEDIUM :
+        the normal weight( = 500; Since: 1.24)
+
+    SEMIBOLD :
+        the semibold weight( = 600)
+
+    ULTRABOLD :
+        the ultrabold weight( = 800)
+
+    HEAVY :
+        the heavy weight( = 900)
+
+    ULTRAHEAVY :
+        the ultraheavy weight( = 1000; Since: 1.24)
     """
     # TODO: Support numerical values also
-    """the default weight (= 400)"""
     NORMAL = PANGO_WEIGHT_NORMAL
     BOLD = PANGO_WEIGHT_BOLD
-    """the bold weight( = 700)"""
     THIN = PANGO_WEIGHT_THIN
-    """the thin weight( = 100; Since: 1.24)"""
     ULTRALIGHT = PANGO_WEIGHT_ULTRALIGHT
-    """the ultralight weight( = 200)"""
     LIGHT = PANGO_WEIGHT_LIGHT
-    """the light weight( = 300)"""
     BOOK = PANGO_WEIGHT_BOOK
-    """the book weight( = 380; Since: 1.24)"""
     MEDIUM = PANGO_WEIGHT_MEDIUM
-    """the normal weight( = 500; Since: 1.24)"""
     SEMIBOLD = PANGO_WEIGHT_SEMIBOLD
-    """the semibold weight( = 600)"""
     ULTRABOLD = PANGO_WEIGHT_ULTRABOLD
-    """the ultrabold weight( = 800)"""
     HEAVY = PANGO_WEIGHT_HEAVY
-    """the heavy weight( = 900)"""
     ULTRAHEAVY = PANGO_WEIGHT_ULTRAHEAVY
-    """the ultraheavy weight( = 1000; Since: 1.24)"""
 
 class Variant(Enum):
     """
     An enumeration specifying capitalization variant of the font.
+
+    Attributes
+    ----------
+
+    NORMAL :
+        A normal font.
+
+    SMALL_CAPS :
+        A font with the lower case characters replaced by smaller variants
+    of the capital characters.
     """
     NORMAL = PANGO_VARIANT_NORMAL
-    """A normal font."""
     SMALL_CAPS = PANGO_VARIANT_SMALL_CAPS
-    """A font with the lower case characters replaced by smaller variants
-    of the capital characters."""
 
 class TextInfo:
     """
