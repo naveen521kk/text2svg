@@ -6,7 +6,7 @@
 <img src="https://img.shields.io/pypi/format/text2svg?style=flat-square" alt="PyPI - Format">
 <img src="https://img.shields.io/pypi/status/text2svg?style=flat-square" alt="PyPI - Status">
 <img src="https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square" alt="GitHub Release Date">
-<img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" alt="pre-commit hook>
+<img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" alt="pre-commit hook">
 </p>
 <p align="center">
   <img alt="Build Wheels" src="https://github.com/naveen521kk/text2svg/workflows/Build%20Wheels/badge.svg">
@@ -38,3 +38,11 @@ text2svg(info)
 ```
 
 This will simply create a `hello.svg` in the current working directory.
+
+## Documentation
+
+Documentation is located at https://text2svg.syrusdark.website
+
+## LICENSE
+
+This project along with its documentation is licensed under GPL-v3. See [LICENSE](https://github.com/naveen521kk/text2svg/blob/main/LICENSE) for details.
