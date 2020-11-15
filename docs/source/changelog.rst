@@ -6,7 +6,7 @@ Changelog
 v0.2.0
 =======
 
-:Date: TBD
+:Date: 15 November 2020
 
 Changes since Text2SVG release v0.1.0
 
