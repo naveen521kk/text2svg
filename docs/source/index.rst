@@ -28,3 +28,9 @@ See :doc:`examples` for some example of how to.
    :caption: Reference
 
    reference
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Changelog
+
+   changelog
