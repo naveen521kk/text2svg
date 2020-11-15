@@ -66,7 +66,7 @@ html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
     "base_url": "https://text2svg.syrusdark.website/",
-    "color_primary": "red",
+    "color_primary": "blue",
     "color_accent": "green",
     "theme_color": "E86342",
     "repo_url": "https://github.com/naveen521kk/text2svg",
