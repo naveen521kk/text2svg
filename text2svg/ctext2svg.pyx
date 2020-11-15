@@ -121,7 +121,7 @@ class Variant(Enum):
 
     SMALL_CAPS :
         A font with the lower case characters replaced by smaller variants
-    of the capital characters.
+        of the capital characters.
     """
     NORMAL = PANGO_VARIANT_NORMAL
     SMALL_CAPS = PANGO_VARIANT_SMALL_CAPS
