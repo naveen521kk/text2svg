@@ -12,8 +12,19 @@ wrapped using Cython.
 See :doc:`examples` for some example of how to.
 
 .. toctree::
+   :caption: Installing
    :maxdepth: 2
 
    install
+
+.. toctree::
+   :caption: Examples
+   :maxdepth: 2
+
    examples
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference
+
    reference

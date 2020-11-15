@@ -371,7 +371,7 @@ def register_font(font_path:str):
         If the font couldn't be loaded due to various reasons.
     """
     a=Path(font_path)
-    assert a.exists(), "font doesn't exists"
+    assert a.exists(), f"font doesn't exists at {a.absolute()}"
     font_path = str(a.absolute())
     font_path_bytes=font_path.encode()
     cdef char* fontPath = font_path_bytes
