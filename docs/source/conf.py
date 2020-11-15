@@ -93,6 +93,6 @@ html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "searchbox.html"]}
 
 ogp_image = "https://text2svg.syrusdark.website/_static/logo.png"
 ogp_site_name = "Text2SVG | Documentation"
-ogp_site_url = "https://text2svg.readthedocs.io/"
+ogp_site_url = "https://text2svg.syrusdark.website/"
 
 latex_logo = str(Path("_static/logo.png"))
