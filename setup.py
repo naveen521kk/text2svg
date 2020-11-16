@@ -77,13 +77,16 @@ setup(
     version="0.2.0",
     author="Naveen M K",
     author_email="naveen@syrusdark.website",
+    maintainer="Naveen M K",
+    maintainer_email="naveen@syrusdark.website",
+    url="https://text2svg.syrusdark.website",
     description="Convert text to SVG file.",
     long_description=long_description,
     zip_safe=False,
     long_description_content_type="text/markdown",
-    url="https://github.com/naveen521kk/text2svg",
     license="GPL version 3",
     packages=find_packages(),
+    platforms=["Linux", "macOS", "Windows"],
     keywords=["cython", "pango", "cairo", "svg"],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -98,4 +101,18 @@ setup(
         include_path=["text2svg"],
         build_dir=str(Path(__file__).parent / "build"),
     ),
+    install_requires=["Cython", "wheel"],
+    project_urls={
+        "Documentation": "https://text2svg.syrusdark.website",
+        "Code": "https://github.com/naveen521kk/text2svg",
+        "Issue tracker": "https://github.com/naveen521kk/text2svg/issues",
+    },
+    entry_points={
+        "console_scripts": [
+            "text2svg=text2svg.cli:main",
+        ],
+    },
+    extras_require={
+        "cli": ["colorama"],
+    },
 )
