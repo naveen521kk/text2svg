@@ -229,7 +229,7 @@ class TextInfo:
         return self._text.encode()
 
     @text.setter
-    def text(self,text):
+    def text(self,text:str):
         if text=="":
             warnings.warn("Text is empty.")
         self._text = text
@@ -237,7 +237,7 @@ class TextInfo:
     def filename(self):
         return self._filename.encode()
     @filename.setter
-    def filename(self,filename):
+    def filename(self,filename:str):
         assert filename.endswith(".svg"), "Only SVG file is supported, where it must end with .svg"
         if Path(filename).exists():
             warnings.warn(f"{filename} already exists. Overwriting it.")
@@ -248,7 +248,7 @@ class TextInfo:
     def width(self):
         return self._width
     @width.setter
-    def width(self,width):
+    def width(self,width:int):
         if width==0:
             warnings.warn("Width is set to zero. Which would mean, you would be having a empty file.")
         assert isinstance(width,int)
@@ -257,11 +257,19 @@ class TextInfo:
     def height(self):
         return self._height
     @height.setter
-    def height(self,height):
+    def height(self,height:int):
         if height==0:
             warnings.warn("Height is set to zero. Which would mean, you would be having a empty file.")
         assert isinstance(height,int)
         self._height=height
+    @property
+    def font_size(self):
+        return self._font_size
+    @font_size.setter
+    def font_size(self,font_size:int):
+        assert isinstance(font_size,int)
+        self._font_size=font_size
+
 
 
 def text2svg(text_info:TextInfo) -> int:
