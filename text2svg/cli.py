@@ -4,7 +4,9 @@ from .__version__ import __version__ as version
 import sys
 
 try:
-    from colorama import Fore, Style
+    from colorama import Fore, Style, init
+
+    init()
 except ImportError:
     Fore = None
 
@@ -40,12 +42,14 @@ def main():
         "-w",
         help="The width of the image.",
         default=100,
+        type=int,
     )
     parser.add_argument(
         "--height",
         "-ht",
         help="The height of the image.",
         default=100,
+        type=int,
     )
     parser.add_argument(
         "--font-size",
@@ -58,32 +62,33 @@ def main():
     parser.add_argument("--font", "-f", help="Font to use.")
     parser.add_argument("-y", help="no prompts.", action="store_true")
     args = parser.parse_args()
-    if Path(args.filename).exists() and args.y is False:
-        if Fore:
-            chk = int(
-                input(
-                    Fore.CYAN
-                    + f"File {args.filename} already exists. \n"
-                    + "Do you wantto overwrite?[1/0]"
+    if Path(args.filename).exists():
+        if args.y is False:
+            if Fore:
+                chk = int(
+                    input(
+                        Fore.CYAN
+                        + f"File {args.filename} already exists. \n"
+                        + "Do you wantto overwrite?[1/0]"
+                    )
                 )
-            )
-            print(Style.RESET_ALL)
+                print(Style.RESET_ALL)
+            else:
+                chk = int(
+                    input(
+                        f"File {args.filename} already exists. \n"
+                        + "Do you wantto overwrite?[1/0]"
+                    )
+                )
+            if chk == 0:
+                sys.exit(1)
         else:
-            chk = int(
-                input(
-                    f"File {args.filename} already exists. \n"
-                    + "Do you wantto overwrite?[1/0]"
-                )
-            )
-        if chk == 0:
+            if Fore:
+                print(Fore.RED + "Exiting file already exists")
+                print(Style.RESET_ALL)
+            else:
+                print("Exiting file alreay exists")
             sys.exit(1)
-    else:
-        if Fore:
-            print(Fore.RED + "Exiting file already exists")
-            print(Style.RESET_ALL)
-        else:
-            print("Exiting file alreay exists")
-        sys.exit(1)
     text = TextInfo(
         args.text,
         args.filename,

@@ -211,20 +211,9 @@ class TextInfo:
         START_X:float=0,
         START_Y:float=0
     ):
-        if text=="":
-            warnings.warn("Text is empty.")
-        assert filename.endswith(".svg"), "Only SVG file is supported, where it must end with .svg"
-        self.text=text.encode()
-        if Path(filename).exists():
-            warnings.warn(f"{filename} already exists. Overwriting it.")
-        if not Path(filename).parent.exists():
-            raise ValueError("Directory doesn't exists. This will cause a Memory Leak.")
-        self.filename=str(Path(filename)).encode()
-        if width==0:
-            warnings.warn("Width is set to zero. Which would mean, you would be having a empty file.")
+        self.text=text
+        self.filename=filename
         self.width=width
-        if height==0:
-            warnings.warn("Height is set to zero. Which would mean, you would be having a empty file.")
         self.height=height
         self.font_size=font_size
         self.font_style=font_style.value
@@ -235,6 +224,45 @@ class TextInfo:
         self.START_Y=START_Y
     def __repr__(self):
         return f"TextInfo({self.text})"
+    @property
+    def text(self):
+        return self._text.encode()
+
+    @text.setter
+    def text(self,text):
+        if text=="":
+            warnings.warn("Text is empty.")
+        self._text = text
+    @property
+    def filename(self):
+        return self._filename.encode()
+    @filename.setter
+    def filename(self,filename):
+        assert filename.endswith(".svg"), "Only SVG file is supported, where it must end with .svg"
+        if Path(filename).exists():
+            warnings.warn(f"{filename} already exists. Overwriting it.")
+        if not Path(filename).parent.exists():
+            raise ValueError("Directory doesn't exists. This will cause a Memory Leak.")
+        self._filename = str(Path(filename))
+    @property
+    def width(self):
+        return self._width
+    @width.setter
+    def width(self,width):
+        if width==0:
+            warnings.warn("Width is set to zero. Which would mean, you would be having a empty file.")
+        assert isinstance(width,int)
+        self._width=width
+    @property
+    def height(self):
+        return self._height
+    @height.setter
+    def height(self,height):
+        if height==0:
+            warnings.warn("Height is set to zero. Which would mean, you would be having a empty file.")
+        assert isinstance(heigth,int)
+        self._height=height
+
 
 def text2svg(text_info:TextInfo) -> int:
     """
