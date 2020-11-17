@@ -260,7 +260,7 @@ class TextInfo:
     def height(self,height):
         if height==0:
             warnings.warn("Height is set to zero. Which would mean, you would be having a empty file.")
-        assert isinstance(heigth,int)
+        assert isinstance(height,int)
         self._height=height
 
 
