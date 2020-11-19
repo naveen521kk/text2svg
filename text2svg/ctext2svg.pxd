@@ -17,6 +17,11 @@
 cdef extern from "glib.h":
     ctypedef void* gpointer
     ctypedef int gint
+    ctypedef unsigned int guint
+    ctypedef gint gboolean
+    ctypedef unsigned short guint16
+    ctypedef struct GPtrArray:
+        pass
 
 cdef extern from "glib-object.h":
     void g_object_unref (gpointer object);
@@ -85,11 +90,35 @@ cdef extern from "pango/pangocairo.h":
         pass
     ctypedef enum cairo_font_type_t:
         CAIRO_FONT_TYPE_FT
+    ctypedef struct PangoAttrList:
+        guint ref_count
+        GPtrArray* attributes
+    ctypedef struct PangoAttribute:
+        int start_index
+        int end_index
+    ctypedef struct PangoColor:
+        guint16 red
+        guint16 green
+        guint16 blue
     PangoLayout * pango_cairo_create_layout(cairo_t* cr)
     void pango_cairo_show_layout(cairo_t* cr,PangoLayout* layout)
     PangoFontMap * pango_cairo_font_map_new_for_font_type(cairo_font_type_t fonttype)
     PangoContext * pango_font_map_create_context (PangoFontMap* fontmap)
     PangoLayout * pango_layout_new (PangoContext *context)
+    void pango_attr_list_insert (PangoAttrList *list,PangoAttribute *attr);
+
+cdef extern from "pango/pango.h":
+    PangoAttrList* pango_attr_list_new ()
+    void pango_attr_list_unref (PangoAttrList *list)
+    PangoAttribute* pango_attr_family_new (const char *family)
+    bint pango_color_parse (void *, const char* spec)
+    bint pango_color_parse_with_alpha (PangoColor *color,void *,const char *spec);
+    void pango_attribute_destroy (PangoAttribute *attr)
+    void pango_layout_set_attributes (PangoLayout *layout,PangoAttrList *attrs);
+    PangoAttribute* pango_attr_style_new (PangoStyle style)
+    PangoAttribute* pango_attr_weight_new (PangoWeight weight)
+    PangoAttribute* pango_attr_variant_new (PangoVariant variant)
+    PangoAttribute* pango_attr_foreground_new (guint16 red, guint16 green, guint16 blue)
 
 cdef extern from "fontconfig/fontconfig.h":
     ctypedef int FcBool

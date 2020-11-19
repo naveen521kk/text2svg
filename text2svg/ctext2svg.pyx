@@ -33,6 +33,7 @@ cimport ctext2svg
 import warnings
 from pathlib import Path
 from enum import Enum
+from typing import Optional
 
 class Style(Enum):
     """
@@ -169,6 +170,10 @@ class TextInfo:
         Specify the y-coordinate here. Also, please see
         cairo docs about where the pointer starts.
 
+    text_setting : :class:`CharSettings`
+        These attributes which allow individual colouring,
+        font changing or changing style of the rendered SVG
+        image.
     Returns
     -------
     :class:`TextInfo`
@@ -209,7 +214,8 @@ class TextInfo:
         font_variant:Variant = Variant.NORMAL,
         font:str="Sans",
         START_X:float=0,
-        START_Y:float=0
+        START_Y:float=0,
+        text_setting=None
     ):
         self.text=text
         self.filename=filename
@@ -222,6 +228,7 @@ class TextInfo:
         self.font=font.encode()
         self.START_X=START_X
         self.START_Y=START_Y
+        self.text_setting = text_setting # TODO: Do a sanity check here
     def __repr__(self):
         return f"TextInfo({self.text})"
     @property
@@ -313,6 +320,11 @@ def text2svg(text_info:TextInfo) -> int:
     cdef cairo_status_t status
     cdef PangoFontMap* mPangoFontMap
     cdef PangoContext* mPangoContext
+    cdef PangoAttrList* pango_attr_list = pango_attr_list_new ()
+    cdef PangoAttribute * attr
+    cdef PangoColor color_c
+    if pango_attr_list == NULL:
+        raise MemoryError("PangoAttrList can't be initialised")
     surface = cairo_svg_surface_create(text_info.filename, text_info.width, text_info.height)
     if surface == NULL:
         raise MemoryError("Cairo.SVGSurface can't be created.")
@@ -330,6 +342,7 @@ def text2svg(text_info:TextInfo) -> int:
 
     mPangoFontMap = pango_cairo_font_map_new_for_font_type(CAIRO_FONT_TYPE_FT)
     if mPangoFontMap == NULL:
+        pango_attr_list_unref (pango_attr_list)
         raise Exception("Cairo is not Compiled with Fontconfig and FreetType Enabled.")
     mPangoContext = pango_font_map_create_context(mPangoFontMap)
     layout = pango_layout_new(mPangoContext)
@@ -337,6 +350,7 @@ def text2svg(text_info:TextInfo) -> int:
     if layout==NULL:
         cairo_destroy(cr)
         cairo_surface_destroy(surface)
+        pango_attr_list_unref (pango_attr_list)
         raise MemoryError("Pango.Layout can't be created from Cairo Context.")
 
     pango_layout_set_width(layout, pango_units_from_double(width_layout))
@@ -345,6 +359,7 @@ def text2svg(text_info:TextInfo) -> int:
         cairo_destroy(cr)
         cairo_surface_destroy(surface)
         g_object_unref(layout)
+        pango_attr_list_unref (pango_attr_list)
         raise MemoryError("Pango.FontDesc can't be created.")
     pango_font_description_set_size(font_desc, pango_units_from_double(font_size_c))
     pango_font_description_set_family(font_desc, text_info.font)
@@ -352,9 +367,45 @@ def text2svg(text_info:TextInfo) -> int:
     pango_font_description_set_weight(font_desc, text_info.font_weight)
     pango_font_description_set_variant(font_desc, text_info.font_variant)
     pango_layout_set_font_description(layout, font_desc)
-
+    if text_info.text_setting:
+        for setting in text_info.text_setting:
+            if setting.font:
+                print(f"Setting Font {setting.font}")
+                attr = pango_attr_family_new(setting.font)
+                attr.start_index = setting.start
+                attr.end_index = setting.end
+                pango_attr_list_insert(pango_attr_list,attr)
+            if setting.style:
+                print(f"Setting style {setting.style}")
+                attr = pango_attr_style_new(setting.style.value)
+                attr.start_index = setting.start
+                attr.end_index = setting.end
+                pango_attr_list_insert(pango_attr_list,attr)
+            if setting.weight:
+                print(f"Setting weight {setting.weight}")
+                attr = pango_attr_weight_new(setting.weight.value)
+                attr.start_index = setting.start
+                attr.end_index = setting.end
+                pango_attr_list_insert(pango_attr_list,attr)
+            if setting.variant:
+                print(f"Setting variant {setting.variant}")
+                attr = pango_attr_variant_new (setting.variant.value)
+                attr.start_index = setting.start
+                attr.end_index = setting.end
+                pango_attr_list_insert(pango_attr_list,attr)
+            if setting.foreground_color:
+                print(f"Setting foreground_color {setting.foreground_color}")
+                chk = pango_color_parse_with_alpha(&color_c,NULL,setting.foreground_color)
+                if chk:
+                    print("Valid Color")
+                    attr=pango_attr_foreground_new(color_c.red,color_c.green,color_c.blue)
+                else:
+                    raise Exception("Invalid Colour")
+                attr.start_index = setting.start
+                attr.end_index = setting.end
+                pango_attr_list_insert(pango_attr_list,attr)
     pango_layout_set_text(layout, text_info.text, -1)
-
+    pango_layout_set_attributes(layout,pango_attr_list)
     pango_cairo_show_layout(cr, layout)
 
     status = cairo_status(cr)
@@ -362,11 +413,13 @@ def text2svg(text_info:TextInfo) -> int:
         cairo_destroy(cr)
         cairo_surface_destroy(surface)
         g_object_unref(layout)
+        pango_attr_list_unref (pango_attr_list)
         raise MemoryError("Cairo.Context can't be created.")
     elif status != CAIRO_STATUS_SUCCESS:
         cairo_destroy(cr)
         cairo_surface_destroy(surface)
         g_object_unref(layout)
+        pango_attr_list_unref (pango_attr_list)
         raise Exception(cairo_status_to_string(status).decode())
 
     cairo_destroy(cr)
@@ -374,7 +427,7 @@ def text2svg(text_info:TextInfo) -> int:
     g_object_unref(mPangoFontMap)
     g_object_unref(mPangoContext)
     g_object_unref(layout)
-
+    pango_attr_list_unref (pango_attr_list)
     return 1
 
 def register_font(font_path:str):
@@ -416,3 +469,27 @@ def register_font(font_path:str):
         return 1
     else:
         raise TypeError("Could not load font from file %s"%fontPath)
+
+def valid_color(color:str,alpha:Optional[int]=1):
+    """This function check whether the passes color is valid or
+    not by using the function :func:`pango_color_parse`
+
+    Parameters
+    ==========
+    color : :class:`str`
+        The colour to parse.
+
+    Returns
+    =======
+    :class:`bool`
+        Whether it is a valid color or not.
+
+    Examples
+    --------
+    >>> valid_color("WHITE")
+    True
+
+    >>> valid_color("#fff")
+    True
+    """
+    return pango_color_parse(NULL,color.encode())
