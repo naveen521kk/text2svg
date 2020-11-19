@@ -32,9 +32,9 @@ and checking your installation by running the below example.
 
 This is a small example on how it works.
 ```py
-from text2svg import *
-info = TextInfo("Hello World","hello.svg",50,50)
-text2svg(info)
+>>> from text2svg import *
+>>> info = TextInfo("Hello World","hello.svg",50,50)
+>>> text2svg(info)
 ```
 
 This will simply create a `hello.svg` in the current working directory.
