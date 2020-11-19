@@ -395,7 +395,7 @@ def text2svg(text_info:TextInfo) -> int:
                 pango_attr_list_insert(pango_attr_list,attr)
             if setting.foreground_color:
                 print(f"Setting foreground_color {setting.foreground_color}")
-                chk = pango_color_parse_with_alpha(&color_c,NULL,setting.foreground_color)
+                chk = pango_color_parse(&color_c,setting.foreground_color)
                 if chk:
                     print("Valid Color")
                     attr=pango_attr_foreground_new(color_c.red,color_c.green,color_c.blue)
@@ -492,4 +492,5 @@ def valid_color(color:str,alpha:Optional[int]=1):
     >>> valid_color("#fff")
     True
     """
-    return pango_color_parse(NULL,color.encode())
+    cdef PangoColor color_c
+    return pango_color_parse(&color_c,color.encode())

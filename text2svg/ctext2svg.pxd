@@ -111,8 +111,7 @@ cdef extern from "pango/pango.h":
     PangoAttrList* pango_attr_list_new ()
     void pango_attr_list_unref (PangoAttrList *list)
     PangoAttribute* pango_attr_family_new (const char *family)
-    bint pango_color_parse (void *, const char* spec)
-    bint pango_color_parse_with_alpha (PangoColor *color,void *,const char *spec);
+    bint pango_color_parse (PangoColor *color, const char* spec)
     void pango_attribute_destroy (PangoAttribute *attr)
     void pango_layout_set_attributes (PangoLayout *layout,PangoAttrList *attrs);
     PangoAttribute* pango_attr_style_new (PangoStyle style)
