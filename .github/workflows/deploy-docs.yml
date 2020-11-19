@@ -18,6 +18,8 @@ jobs:
           python-version: "3.x"
           architecture: "x64"
       - name: Install and Build 🔧
+        env:
+          ref: ${{ github.ref }}
         run: |
           sudo apt-get install libpango1.0-dev
           sudo apt install libcairo2-dev pkg-config python3-dev
@@ -25,11 +27,22 @@ jobs:
           cd docs
           pip install -r requirements.txt
           make html
+          branch=$(python -c "print('${ref}'[11:])")
+          echo $branch
+          mkdir build/final
+          if [ $branch == "main" ]
+          then
+            mkdir build/final/latest
+            mv build/html/* build/final/latest
+          else
+            mkdir build/final
+            mv build/html/* build/final/latest
+          fi
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: docs/build/html # The folder the action should deploy.
+          FOLDER: docs/build/final # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
