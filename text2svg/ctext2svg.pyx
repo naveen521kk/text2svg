@@ -463,7 +463,7 @@ def register_font(font_path:str):
     assert a.exists(), f"font doesn't exists at {a.absolute()}"
     font_path = str(a.absolute())
     font_path_bytes=font_path.encode()
-    cdef char* fontPath = font_path_bytes
+    cdef const unsigned char* fontPath = font_path_bytes
     fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath)
     if fontAddStatus:
         return 1

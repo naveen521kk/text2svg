@@ -2,11 +2,11 @@
 
 <p align="center"><a href="https://github.com/naveen521kk/text2svg/blob/main/LICENSE"><img src="https://img.shields.io/github/license/naveen521kk/text2svg?style=flat-square" alt="GitHub license"></a>
 <a href="https://github.com/naveen521kk/text2svg/issues"><img src="https://img.shields.io/github/issues/naveen521kk/text2svg?style=flat-square" alt="GitHub issues"></a>
-<img src="https://img.shields.io/pypi/v/text2svg?style=flat-square" alt="PyPI">
-<img src="https://img.shields.io/pypi/format/text2svg?style=flat-square" alt="PyPI - Format">
-<img src="https://img.shields.io/pypi/status/text2svg?style=flat-square" alt="PyPI - Status">
-<img src="https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square" alt="GitHub Release Date">
-<img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" alt="pre-commit hook">
+<a href="https://pypi.org/project/text2svg/"><img src="https://img.shields.io/pypi/v/text2svg?style=flat-square" alt="PyPI"></a>
+<a href="https://pypi.org/project/text2svg/"><img src="https://img.shields.io/pypi/format/text2svg?style=flat-square" alt="PyPI - Format"></a>
+<a href="https://pypi.org/project/text2svg/"><img src="https://img.shields.io/pypi/status/text2svg?style=flat-square" alt="PyPI - Status"></a>
+<a href="https://github.com/naveen521kk/text2svg/releases"><img src="https://img.shields.io/github/release-date/naveen521kk/text2svg?style=flat-square" alt="GitHub Release Date"></a>
+<a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" alt="pre-commit hook"></a>
 </p>
 <p align="center">
   <img alt="Build Wheels" src="https://github.com/naveen521kk/text2svg/workflows/Build%20Wheels/badge.svg">

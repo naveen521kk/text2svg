@@ -2,6 +2,14 @@
 Changelog
 *********
 
+v0.2.1
+======
+
+:Date: 19 November 2020
+
+Changes since Text2SVG release v0.2.0
+
+#. Fix a Compiler warning for pointer-sign.
 
 v0.2.0
 =======
