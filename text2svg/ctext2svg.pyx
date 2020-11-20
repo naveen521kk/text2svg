@@ -276,7 +276,21 @@ class TextInfo:
     def font_size(self,font_size:int):
         assert isinstance(font_size,int)
         self._font_size=font_size
-
+    def __dict__(self):
+        return dict(
+            text=self.text,
+            filename=self.filename,
+            width=self.width,
+            height=self.height,
+            font_size=self.font_size,
+            font_style=self.font_style,
+            font_weight=self.font_weight,
+            font_variant=self.font_variant,
+            font=self.font,
+            START_X=self.START_X,
+            START_Y=self.START_Y,
+            text_setting=self.text_setting,
+        )
 
 
 def text2svg(text_info:TextInfo) -> int:

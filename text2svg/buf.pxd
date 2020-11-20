@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # text2svg, Convert text to SVG files.
 # Copyright (C) 2020 Naveen M K
 #
@@ -14,28 +13,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-    __init__.py
-    ~~~~~~~~~~~
 
-    Initialisation of the module is done here.
+cdef class Buffer(object):
 
-    :copyright: Copyright 2020 by Naveen M K
-    :licence: GPLv3, See LICENSE for details.
-
-"""
-import os
-from .__version__ import *  # noqa: F401,F403
-from .settings import *  # noqa: F401,F403
-
-if os.name == "nt":
-    os.environ["PATH"] = (
-        os.path.abspath(os.path.dirname(__file__))
-        + os.pathsep
-        + os.environ["PATH"]  # noqa: E501
-    )
-try:
-    from .ctext2svg import *  # noqa: F401,F403
-    from .ctext2np import *  # noqa: F401,F403
-except ImportError:
-    raise ImportError("Couldn't load the necessary Shared Libraries.")
+    cdef size_t _buffer_size(self)
+    cdef void* _buffer_ptr(self)
+    cdef bint _buffer_writable(self)

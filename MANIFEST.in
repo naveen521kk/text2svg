@@ -1,2 +1,2 @@
-include *.win32 *.md
+include windll/*.win32 *.md
 recursive-include text2svg *.pyx *.pxd

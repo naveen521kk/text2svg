@@ -57,17 +57,30 @@ def get_library_config(name):
 def update_dict(dict1, dict2):
     for key in dict2:
         if key in dict1:
-            dict2[key] = dict2[key] + dict1[key]
+            if dict1[key] not in dict2[key]:
+                dict2[key] = dict2[key] + dict1[key]
         else:
             pass
     return dict2
 
 
-pyx_file = str(Path(__file__).parent / "text2svg" / "ctext2svg.pyx")
+base_file = Path(__file__).parent / "text2svg"
 returns = get_library_config("pangocairo")
 returns = update_dict(returns, get_library_config("pangofc"))
 
-ext_modules = [Extension("text2svg.ctext2svg", [pyx_file], **returns)]
+ext_modules = [
+    Extension(
+        "text2svg.ctext2svg",
+        [str(base_file / "ctext2svg.pyx")],
+        **returns,
+    ),
+    Extension(
+        "text2svg.ctext2np",
+        [str(base_file / "ctext2np.pyx")],
+        **returns,
+    ),
+    Extension("text2svg.buf", [str(base_file / "buf.pyx")]),
+]
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
