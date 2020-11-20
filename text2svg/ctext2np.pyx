@@ -17,9 +17,6 @@
 cimport ctext2np
 from .buf cimport Buffer
 from .ctext2svg import TextInfo
-import numpy as np
-from cpython cimport array
-import array
 cdef class Text2np(Buffer):
 
     cdef int size
