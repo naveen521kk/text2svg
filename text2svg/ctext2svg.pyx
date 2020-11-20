@@ -30,10 +30,12 @@
 
 """
 cimport ctext2svg
+
 import warnings
-from pathlib import Path
 from enum import Enum
+from pathlib import Path
 from typing import Optional
+
 
 class Style(Enum):
     """

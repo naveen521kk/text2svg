@@ -6,8 +6,7 @@ from shlex import quote
 from subprocess import PIPE, Popen
 
 from Cython.Build import cythonize
-from setuptools import Extension, setup, find_packages
-
+from setuptools import Extension, find_packages, setup
 
 _cflag_parser = argparse.ArgumentParser(add_help=False)
 _cflag_parser.add_argument("-I", dest="include_dirs", action="append")

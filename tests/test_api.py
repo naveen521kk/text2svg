@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 
 def test_svg_create():
@@ -19,7 +19,7 @@ def test_svg_create():
 
 
 def test_variant():
-    from text2svg import TextInfo, text2svg, Variant
+    from text2svg import TextInfo, Variant, text2svg
 
     t_info = TextInfo(
         "Random Nice",
@@ -43,8 +43,9 @@ def test_variant():
 
 
 def test_exceptions_file_handling():
-    from text2svg import TextInfo, text2svg
     import os
+
+    from text2svg import TextInfo, text2svg
 
     with tempfile.TemporaryDirectory() as tmpdirname:
         save_locatiion = Path(tmpdirname) / "lock.svg"

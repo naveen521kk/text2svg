@@ -25,6 +25,7 @@
 
 """
 import os
+
 from .__version__ import *  # noqa: F401,F403
 
 if os.name == "nt":

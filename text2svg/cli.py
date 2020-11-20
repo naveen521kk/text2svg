@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from .ctext2svg import TextInfo, text2svg
-from .__version__ import __version__ as version
 import sys
+
+from .__version__ import __version__ as version
+from .ctext2svg import TextInfo, text2svg
 
 try:
     from colorama import Fore, Style, init
