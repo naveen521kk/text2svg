@@ -10,7 +10,7 @@ v0.3.0
 Changes since Text2SVG release v0.2.1
 
 #. Implement :class:`CharSettings` which can be
-   used to specify styles for specific part of 
+   used to specify styles for specific part of
    the Text. See example for usage.
 
 #. Add a CLI, a very poor one and needs a lot of rework.

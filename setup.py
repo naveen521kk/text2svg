@@ -91,7 +91,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
-        'Programming Language :: Cython',
+        "Programming Language :: Cython",
     ],
     python_requires=">=3.6",
     ext_modules=cythonize(

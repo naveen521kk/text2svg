@@ -42,7 +42,7 @@ Here, we are going to create a SVG file with ``Hello`` written
 in ``RED`` and ``WORLD`` written in ``GREEN``.
 
 .. code-block:: python
-	
+
 	from text2svg import *
 	char = [CharSettings(0,5,foreground_color="RED")]
 	char.append(CharSettings(6,11,foreground_color="GREEN"))
