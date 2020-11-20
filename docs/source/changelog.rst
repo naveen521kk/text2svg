@@ -2,6 +2,24 @@
 Changelog
 *********
 
+v0.3.0
+======
+
+:Date: TBD
+
+Changes since Text2SVG release v0.2.1
+
+#. Implement :class:`CharSettings` which can be
+   used to specify styles for specific part of 
+   the Text. See example for usage.
+
+#. Add a CLI, a very poor one and needs a lot of rework.
+
+#. Docs for the ``master`` branch are now deployed at
+   https://text2svg.syrusdark.website/latest
+
+#. Isort is used for formatting the code.
+
 v0.2.1
 ======
 

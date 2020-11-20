@@ -34,3 +34,17 @@ Download it from https://fonts.google.com/download?family=Tangerine.
 You would get an image like below one.
 
 .. image:: _static/example_font.svg
+
+Colouring Individual Characters
+-------------------------------
+
+Here, we are going to create a SVG file with ``Hello`` written
+in ``RED`` and ``WORLD`` written in ``GREEN``.
+
+.. code-block:: python
+	
+	from text2svg import *
+	char = [CharSettings(0,5,foreground_color="RED")]
+	char.append(CharSettings(6,11,foreground_color="GREEN"))
+	text = TextInfo("Hello World","hello.svg",100,100,text_setting=char)
+	text2svg(text)

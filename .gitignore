@@ -1,6 +1,8 @@
 # Prerequisites
 # Byte-compiled / optimized / DLL files
 __pycache__/
+docs/source/reference
+docs/_build
 *.py[cod]
 *$py.class
 *.c
@@ -141,5 +143,4 @@ cython_debug/
 *.cbp
 *.json
 *.svg
-!docs/**/*.svg
-docs/source/reference
+
