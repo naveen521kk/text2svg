@@ -26,11 +26,13 @@ author = "Naveen M K"
 
 # The full version, including alpha/beta/rc tags
 release = "0.2.0"
-ref = os.getenv("ref")
+ref = os.getenv("ref", "")
 if ref.startswith("refs/heads/"):
     branch_name = ref[11:]
-else:
+elif ref.startswith("refs/tags/"):
     branch_name = ref[10:]
+else:
+    branch_name = ""
 
 # -- General configuration ---------------------------------------------------
 
