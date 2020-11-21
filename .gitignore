@@ -141,5 +141,5 @@ dmypy.json
 cython_debug/
 *.c
 *.cbp
-*.json
 *.svg
+.vscode
