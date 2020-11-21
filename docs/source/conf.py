@@ -71,7 +71,7 @@ html_favicon = str(Path("_static/favicon.ico"))
 html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
-    "base_url": "https://text2svg.syrusdark.website/",
+    "base_url": html_baseurl,
     "color_primary": "blue",
     "color_accent": "green",
     "theme_color": "E86342",
@@ -106,7 +106,7 @@ html_static_path = ["_static"]
 
 html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "searchbox.html"]}
 
-ogp_image = "https://text2svg.syrusdark.website/_static/logo.png"
+ogp_image = "https://text2svg.syrusdark.website/logo.png"
 ogp_site_name = "Text2SVG | Documentation"
 ogp_site_url = "https://text2svg.syrusdark.website/"
 
