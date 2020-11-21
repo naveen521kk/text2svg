@@ -82,6 +82,15 @@ html_theme_options = {
         "install": "Installing Text2SVG",
     },
     "touch_icon": "apple-touch-icon.png",
+    "version_dropdown": True,
+    "version_dropdown_text": "Versions",
+    "version_json": "_static/versions.json",
+    "version_info": {
+        "Release": "https://text2svg.syrusdark.website/",
+        "Development": "https://text2svg.syrusdark.website/latest/",
+        "Release (rel)": "/",
+        "Development (rel)": "/latest/",
+    },
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
