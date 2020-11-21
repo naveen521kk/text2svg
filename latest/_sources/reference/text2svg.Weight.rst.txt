@@ -1,0 +1,10 @@
+text2svg.Weight
+===============
+
+.. currentmodule:: text2svg
+
+.. autoclass:: Weight
+   :show-inheritance:
+   :members:
+
+   
