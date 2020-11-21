@@ -23,7 +23,7 @@ cdef class Text2np(Buffer):
     cdef unsigned char *buf
     cdef cairo_t* cr
     cdef cairo_surface_t* surface
-    def __cinit__(self, text_info:TextInfo):
+    def __init__(self, text_info:TextInfo):
         """
         This is the main function which actually converts
         the :class:`TextInfo` to an Numpy Array.
@@ -181,8 +181,9 @@ cdef class Text2np(Buffer):
     cdef size_t _buffer_size(self):
         return self.size
     cdef void * _buffer_ptr(self):
-        cairo_destroy(self.cr)
-        cairo_surface_destroy(self.surface)
         return self.buf
     cdef bint _buffer_writable(self):
         return False
+    def __dealloc__(self):
+        cairo_destroy(self.cr)
+        cairo_surface_destroy(self.surface)
