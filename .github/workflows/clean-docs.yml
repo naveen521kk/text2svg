@@ -31,9 +31,9 @@ jobs:
         foreach ($folder in $delete){
             Remove-Item $folder -Recurse -Force
         }
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add changes" -a
+        git config --local user.email "49693820+naveen521kk@users.noreply.github.com"
+        git config --local user.name "Naveen"
+        git commit -m "Remove Unwanted Folders" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
