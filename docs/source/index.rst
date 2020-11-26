@@ -34,3 +34,8 @@ See :doc:`examples` for some example of how to.
    :caption: Changelog
 
    changelog
+
+.. toctree::
+   :caption: Maintainer's Note
+
+   release
