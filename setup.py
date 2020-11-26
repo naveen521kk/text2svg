@@ -73,7 +73,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="text2svg",
-    version="0.3.0-rc1",
+    version="0.3.0",
     author="Naveen M K",
     author_email="naveen@syrusdark.website",
     maintainer="Naveen M K",
@@ -100,7 +100,6 @@ setup(
         include_path=["text2svg"],
         build_dir=str(Path(__file__).parent / "build"),
     ),
-    install_requires=["Cython", "wheel"],
     entry_points={
         "console_scripts": [
             "text2svg=text2svg.cli:main",

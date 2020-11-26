@@ -89,7 +89,6 @@ def main():
                         + "Do you wantto overwrite?[1/0]"
                     )
                 )
-                print(Style.RESET_ALL)
             else:
                 chk = int(
                     input(
@@ -97,6 +96,7 @@ def main():
                         + "Do you wantto overwrite?[1/0]"
                     )
                 )
+            print(Style.RESET_ALL)
             if chk == 0:
                 sys.exit(1)
         else:
@@ -112,6 +112,7 @@ def main():
         args.width,
         args.height,
         font_size=args.fontsize,
+        font=args.font,
     )
     if text2svg(text) == 1:
         if Fore:
