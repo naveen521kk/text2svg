@@ -1,0 +1,6 @@
+text2svg.text2svg
+=================
+
+.. currentmodule:: text2svg
+
+.. autofunction:: text2svg
