@@ -1,0 +1,10 @@
+text2svg.Style
+==============
+
+.. currentmodule:: text2svg
+
+.. autoclass:: Style
+   :show-inheritance:
+   :members:
+
+   
