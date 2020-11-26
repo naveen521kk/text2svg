@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Clone gh-pages
       run: |
+        mkdir "../gh-pages"
         cd "../gh-pages"
         git clone https://github.com/naveen521kk/text2svg.git
         git checkout gh-pages
