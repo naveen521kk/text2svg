@@ -1,6 +1,0 @@
-text2svg.register\_font
-=======================
-
-.. currentmodule:: text2svg
-
-.. autofunction:: register_font
