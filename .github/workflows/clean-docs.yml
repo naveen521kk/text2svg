@@ -1,0 +1,38 @@
+name: Delete Stale Folders
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * 0"
+
+jobs:
+  clean:
+    name: Delete Stale Folders
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone gh-pages
+      uses: actions/checkout@v2
+      with:
+        path: '../gh-pages'
+        ref: 'gh-pages'
+    - uses: actions/setup-python@v2
+    - name: Delete Folders
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $delete = python ".github/stale_branch.py" | ConvertFrom-Json
+        cd "../gh-pages"
+        foreach ($folder in $delete){
+            Remove-Item $folder -Recurse -Force
+        }
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        directory: "../gh-pages"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
