@@ -13,3 +13,5 @@ Reference
    ~Variant
    ~Weight
    ~Style
+   ~register_font
+   ~CharSettings

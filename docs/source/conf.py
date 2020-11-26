@@ -17,6 +17,7 @@
 
 
 # -- Project information -----------------------------------------------------
+import os
 from pathlib import Path
 
 project = "Text2SVG"
@@ -25,7 +26,13 @@ author = "Naveen M K"
 
 # The full version, including alpha/beta/rc tags
 release = "0.2.0"
-
+ref = os.getenv("ref", "")
+if ref.startswith("refs/heads/"):
+    branch_name = ref[11:]
+elif ref.startswith("refs/tags/"):
+    branch_name = ref[10:]
+else:
+    branch_name = ""
 
 # -- General configuration ---------------------------------------------------
 
@@ -58,14 +65,15 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+
 html_theme = "sphinx_material"
-html_baseurl = "https://text2svg.syrusdark.website"
+html_baseurl = "https://text2svg.syrusdark.website/" + branch_name
 html_logo = str(Path("_static/logo.png"))
 html_favicon = str(Path("_static/favicon.ico"))
 html_show_sphinx = False
 html_theme_options = {
     "nav_title": "Text2SVG",
-    "base_url": "https://text2svg.syrusdark.website/",
+    "base_url": html_baseurl,
     "color_primary": "blue",
     "color_accent": "green",
     "theme_color": "E86342",
@@ -82,6 +90,15 @@ html_theme_options = {
         "install": "Installing Text2SVG",
     },
     "touch_icon": "apple-touch-icon.png",
+    "version_dropdown": True,
+    "version_dropdown_text": "Versions",
+    "version_json": "_static/versions.json",
+    "version_info": {
+        "Release": "https://text2svg.syrusdark.website/",
+        "Development": "https://text2svg.syrusdark.website/latest/",
+        "Release (rel)": "/",
+        "Development (rel)": "/latest/",
+    },
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -91,7 +108,7 @@ html_static_path = ["_static"]
 
 html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "searchbox.html"]}
 
-ogp_image = "https://text2svg.syrusdark.website/_static/logo.png"
+ogp_image = "https://text2svg.syrusdark.website/logo.png"
 ogp_site_name = "Text2SVG | Documentation"
 ogp_site_url = "https://text2svg.syrusdark.website/"
 

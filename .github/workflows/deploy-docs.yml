@@ -1,8 +1,6 @@
 name: Build and Deploy
 on:
   push:
-    branches:
-      - main
   release:
     types: [created]
 jobs:
@@ -27,16 +25,20 @@ jobs:
           cd docs
           pip install -r requirements.txt
           make html
-          branch=$(python -c "print('${ref}'[11:])")
+          branch=$(python get-tag.py)
           echo $branch
           mkdir build/final
           if [ $branch == "main" ]
           then
             mkdir build/final/latest
             mv build/html/* build/final/latest
+          elif [ $branch == "stable" ]
+          then
+            mkdir build/final/stable
+            mv build/html/* build/final/stable
           else
-            mkdir build/final
-            mv build/html/* build/final/latest
+            mkdir build/final/$branch
+            mv build/html/* build/final/$branch
           fi
 
       - name: Deploy 🚀

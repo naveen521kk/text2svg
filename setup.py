@@ -6,8 +6,7 @@ from shlex import quote
 from subprocess import PIPE, Popen
 
 from Cython.Build import cythonize
-from setuptools import Extension, setup, find_packages
-
+from setuptools import Extension, find_packages, setup
 
 _cflag_parser = argparse.ArgumentParser(add_help=False)
 _cflag_parser.add_argument("-I", dest="include_dirs", action="append")
@@ -87,7 +86,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="text2svg",
-    version="0.2.0",
+    version="0.3.0",
     author="Naveen M K",
     author_email="naveen@syrusdark.website",
     maintainer="Naveen M K",
@@ -97,7 +96,6 @@ setup(
     long_description=long_description,
     zip_safe=False,
     long_description_content_type="text/markdown",
-    license="GPL version 3",
     packages=find_packages(),
     platforms=["Linux", "macOS", "Windows"],
     keywords=["cython", "pango", "cairo", "svg"],
@@ -106,6 +104,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
+        "Programming Language :: Cython",
     ],
     python_requires=">=3.6",
     ext_modules=cythonize(
@@ -114,12 +113,6 @@ setup(
         include_path=["text2svg"],
         build_dir=str(Path(__file__).parent / "build"),
     ),
-    install_requires=["Cython", "wheel"],
-    project_urls={
-        "Documentation": "https://text2svg.syrusdark.website",
-        "Code": "https://github.com/naveen521kk/text2svg",
-        "Issue tracker": "https://github.com/naveen521kk/text2svg/issues",
-    },
     entry_points={
         "console_scripts": [
             "text2svg=text2svg.cli:main",

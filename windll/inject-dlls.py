@@ -5,10 +5,11 @@ import argparse
 import logging
 import os
 import shutil
-from wheel.cli.unpack import unpack
-from wheel.cli.pack import pack
 import tempfile
 from pathlib import Path
+
+from wheel.cli.pack import pack
+from wheel.cli.unpack import unpack
 
 parser = argparse.ArgumentParser(
     description="Inject DLLs into a Windows binary wheel",
