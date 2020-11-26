@@ -25,6 +25,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        python -m pip instal requests
         $delete = python ".github/stale_branch.py" | ConvertFrom-Json
         cd "../gh-pages"
         foreach ($folder in $delete){
