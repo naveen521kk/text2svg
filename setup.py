@@ -73,7 +73,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="text2svg",
-    version="0.3.0",
+    version="0.3.0-rc1",
     author="Naveen M K",
     author_email="naveen@syrusdark.website",
     maintainer="Naveen M K",
