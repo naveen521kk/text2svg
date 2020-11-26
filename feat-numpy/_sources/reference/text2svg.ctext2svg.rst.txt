@@ -1,0 +1,15 @@
+text2svg.ctext2svg
+==================
+
+.. currentmodule:: text2svg.ctext2svg
+
+.. automodule:: text2svg.ctext2svg
+
+   
+   
+   
+
+
+
+
+
