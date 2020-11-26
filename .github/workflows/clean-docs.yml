@@ -12,10 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Clone gh-pages
-      uses: actions/checkout@v2
-      with:
-        path: '../gh-pages'
-        ref: 'gh-pages'
+      run: |
+        cd "../gh-pages"
+        git clone https://github.com/naveen521kk/text2svg.git
+        git checkout gh-pages
     - uses: actions/setup-python@v2
     - name: Delete Folders
       shell: pwsh
