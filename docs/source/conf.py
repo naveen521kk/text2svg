@@ -94,10 +94,8 @@ html_theme_options = {
     "version_dropdown_text": "Versions",
     "version_json": "_static/versions.json",
     "version_info": {
-        "Release": "https://text2svg.syrusdark.website/" + release,
+        "Release": "https://text2svg.syrusdark.website/v" + release,
         "Development": "https://text2svg.syrusdark.website/latest/",
-        "Release (rel)": "/" + release,
-        "Development (rel)": "/latest/",
     },
 }
 
