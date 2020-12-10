@@ -26,6 +26,8 @@ jobs:
       CIBW_TEST_COMMAND: "pytest {project}/tests"
       CIBW_ENVIRONMENT_WINDOWS: "PKG_CONFIG_PATH='C:\\cibw\\vendor\\lib\\pkgconfig'"
       CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: python windll/inject-dlls.py {wheel} {dest_dir} C:\cibw\vendor\bin
+      CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2010_x86_64:latest
+      CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux2010_i686:latest
 
     steps:
       - uses: actions/checkout@v2
