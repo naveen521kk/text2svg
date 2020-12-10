@@ -17,6 +17,9 @@
 cimport ctext2np
 from .buf cimport Buffer
 from .ctext2svg import TextInfo
+from text2svg.logger cimport initialise_logger
+
+initialise_logger()
 cdef class Text2np(Buffer):
 
     cdef int size
@@ -33,12 +36,6 @@ cdef class Text2np(Buffer):
         text_info : :class:`TextInfo`
             The returned value from :class:`TextInfo`.
 
-        Returns
-        =======
-        :class:`int`
-            Either 0 or 1
-            1 means it worked without any error.
-
         Raises
         ------
 
@@ -49,7 +46,6 @@ cdef class Text2np(Buffer):
         """
         if not isinstance(text_info,TextInfo):
             raise ValueError("text_info is not a instance of TextInfo")
-        text_info.__dict__()
         cdef cairo_surface_t* surface
         cdef cairo_t* cr
         cdef PangoFontDescription* font_desc
@@ -59,7 +55,7 @@ cdef class Text2np(Buffer):
         cdef cairo_status_t status
         cdef PangoFontMap* mPangoFontMap
         cdef PangoContext* mPangoContext
-        cdef PangoAttrList* pango_attr_list = pango_attr_list_new ()
+        cdef PangoAttrList* pango_attr_list = pango_attr_list_new()
         cdef PangoAttribute * attr
         cdef PangoColor color_c
         if pango_attr_list == NULL:

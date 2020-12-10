@@ -66,8 +66,14 @@ def update_dict(dict1, dict2):
 base_file = Path(__file__).parent / "text2svg"
 returns = get_library_config("pangocairo")
 returns = update_dict(returns, get_library_config("pangofc"))
-
+glib_config = get_library_config("glib-2.0")
 ext_modules = [
+    Extension(
+        "text2svg.logger",
+        [str(base_file / "logger.pyx")],
+        **glib_config,
+    ),
+    Extension("text2svg.buf", [str(base_file / "buf.pyx")]),
     Extension(
         "text2svg.ctext2svg",
         [str(base_file / "ctext2svg.pyx")],
@@ -78,7 +84,6 @@ ext_modules = [
         [str(base_file / "ctext2np.pyx")],
         **returns,
     ),
-    Extension("text2svg.buf", [str(base_file / "buf.pyx")]),
 ]
 
 with open("README.md", "r") as fh:

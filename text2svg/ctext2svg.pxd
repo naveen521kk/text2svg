@@ -24,7 +24,7 @@ cdef extern from "glib.h":
         pass
 
 cdef extern from "glib-object.h":
-    void g_object_unref (gpointer object);
+    void g_object_unref (gpointer object)
 
 cdef extern from "cairo.h":
     ctypedef struct cairo_surface_t:
@@ -106,8 +106,13 @@ cdef extern from "pango/pangocairo.h":
     PangoContext * pango_font_map_create_context (PangoFontMap* fontmap)
     PangoLayout * pango_layout_new (PangoContext *context)
     void pango_attr_list_insert (PangoAttrList *list,PangoAttribute *attr);
+    void pango_cairo_update_context (cairo_t *cr,PangoContext *context)
 
 cdef extern from "pango/pango.h":
+    ctypedef enum PangoWrapMode:
+        PANGO_WRAP_WORD
+        PANGO_WRAP_CHAR
+        PANGO_WRAP_WORD_CHAR
     PangoAttrList* pango_attr_list_new ()
     void pango_attr_list_unref (PangoAttrList *list)
     PangoAttribute* pango_attr_family_new (const char *family)
@@ -118,6 +123,7 @@ cdef extern from "pango/pango.h":
     PangoAttribute* pango_attr_weight_new (PangoWeight weight)
     PangoAttribute* pango_attr_variant_new (PangoVariant variant)
     PangoAttribute* pango_attr_foreground_new (guint16 red, guint16 green, guint16 blue)
+    void pango_layout_set_wrap (PangoLayout *layout,PangoWrapMode wrap);
 
 cdef extern from "fontconfig/fontconfig.h":
     ctypedef int FcBool

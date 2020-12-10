@@ -28,6 +28,7 @@ import os
 
 from .__version__ import *  # noqa: F401,F403
 from .settings import *  # noqa: F401,F403
+from .text2np import text2np  # noqa: F401,F403
 
 if os.name == "nt":
     os.environ["PATH"] = (
@@ -37,6 +38,5 @@ if os.name == "nt":
     )
 try:
     from .ctext2svg import *  # noqa: F401,F403
-    from .ctext2np import *  # noqa: F401,F403
 except ImportError:
     raise ImportError("Couldn't load the necessary Shared Libraries.")

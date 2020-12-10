@@ -30,13 +30,14 @@
 
 """
 cimport ctext2svg
+from text2svg.logger cimport initialise_logger
 
 import warnings
 from enum import Enum
 from pathlib import Path
 from typing import Optional
 
-
+initialise_logger()
 class Style(Enum):
     """
     An enumeration specifying the various slant styles possible for a font.
@@ -339,6 +340,8 @@ def text2svg(text_info:TextInfo) -> int:
     cdef PangoAttrList* pango_attr_list = pango_attr_list_new ()
     cdef PangoAttribute * attr
     cdef PangoColor color_c
+
+
     if pango_attr_list == NULL:
         raise MemoryError("PangoAttrList can't be initialised")
     surface = cairo_svg_surface_create(text_info.filename, text_info.width, text_info.height)
@@ -354,6 +357,7 @@ def text2svg(text_info:TextInfo) -> int:
         cairo_destroy(cr)
         cairo_surface_destroy(surface)
         raise Exception(cairo_status_to_string(status))
+
     cairo_move_to(cr,text_info.START_X,text_info.START_Y)
 
     mPangoFontMap = pango_cairo_font_map_new_for_font_type(CAIRO_FONT_TYPE_FT)
@@ -361,6 +365,9 @@ def text2svg(text_info:TextInfo) -> int:
         pango_attr_list_unref (pango_attr_list)
         raise Exception("Cairo is not Compiled with Fontconfig and FreetType Enabled.")
     mPangoContext = pango_font_map_create_context(mPangoFontMap)
+
+    pango_cairo_update_context(cr,mPangoContext)
+
     layout = pango_layout_new(mPangoContext)
     #layout = pango_cairo_create_layout(cr)
     if layout==NULL:
@@ -421,6 +428,7 @@ def text2svg(text_info:TextInfo) -> int:
                 attr.end_index = setting.end
                 pango_attr_list_insert(pango_attr_list,attr)
     pango_layout_set_text(layout, text_info.text, -1)
+    pango_layout_set_wrap(layout,PANGO_WRAP_WORD_CHAR) # TODO: Add support for choosing this
     pango_layout_set_attributes(layout,pango_attr_list)
     pango_cairo_show_layout(cr, layout)
 
