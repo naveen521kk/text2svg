@@ -25,7 +25,7 @@ copyright = "2020, Naveen M K"
 author = "Naveen M K"
 
 # The full version, including alpha/beta/rc tags
-release = "0.2.0"
+release = "0.3.0"
 ref = os.getenv("ref", "")
 if ref.startswith("refs/heads/"):
     branch_name = ref[11:]
@@ -94,10 +94,8 @@ html_theme_options = {
     "version_dropdown_text": "Versions",
     "version_json": "_static/versions.json",
     "version_info": {
-        "Release": "https://text2svg.syrusdark.website/",
+        "Release": "https://text2svg.syrusdark.website/v" + release,
         "Development": "https://text2svg.syrusdark.website/latest/",
-        "Release (rel)": "/",
-        "Development (rel)": "/latest/",
     },
 }
 

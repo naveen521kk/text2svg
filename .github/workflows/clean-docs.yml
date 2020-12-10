@@ -1,0 +1,42 @@
+name: Delete Stale Folders
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * 0"
+
+jobs:
+  clean:
+    name: Delete Stale Folders
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone gh-pages
+      run: |
+        mkdir "../gh-pages"
+        cd "../gh-pages"
+        git init
+        git remote add origin https://github.com/naveen521kk/text2svg.git
+        git fetch origin
+        git checkout gh-pages
+    - uses: actions/setup-python@v2
+    - name: Delete Folders
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python -m pip install requests
+        $delete = python ".github/stale_branch.py" | ConvertFrom-Json
+        cd "../gh-pages"
+        foreach ($folder in $delete){
+            Remove-Item $folder -Recurse -Force
+        }
+        git config --local user.email "49693820+naveen521kk@users.noreply.github.com"
+        git config --local user.name "Naveen"
+        git commit -m "Remove Unwanted Folders" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        directory: "../gh-pages"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
