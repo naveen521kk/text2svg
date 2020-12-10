@@ -1,0 +1,15 @@
+text2svg.TextInfo
+=================
+
+.. currentmodule:: text2svg
+
+.. autoclass:: TextInfo
+   :show-inheritance:
+   :members:
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+      
