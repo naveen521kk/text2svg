@@ -233,7 +233,20 @@ class TextInfo:
         self.START_Y=START_Y
         self.text_setting = text_setting # TODO: Do a sanity check here
     def __repr__(self):
-        return f"TextInfo({self.text})"
+        return (
+            f"TextInfo("
+            f"text='{self.text.decode()}',"
+            f"filename='{self.filename.decode()}',"
+            f"width={self.width},"
+            f"height={self.height},"
+            f"font_size={self.font_size},"
+            f"font_weight={self.font_weight},"
+            f"font_variant={self.font_variant},"
+            f"font='{self.font.decode()}',"
+            f"START_X={self.START_X},"
+            f"START_Y={self.START_Y},"
+            f"text_setting={self.text_setting})"
+            )
     @property
     def text(self):
         return self._text.encode()

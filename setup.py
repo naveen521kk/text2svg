@@ -125,5 +125,6 @@ setup(
     },
     extras_require={
         "cli": ["colorama"],
+        "test": ["numpy", "pytest", "pycairo", "pytest-runner"],
     },
 )

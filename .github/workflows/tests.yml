@@ -30,12 +30,14 @@ jobs:
       run: |
         sudo apt-get install libpango1.0-dev
         sudo apt install libcairo2-dev pkg-config python3-dev
+        pip install pycairo
 
     - name: Install System Dependency (MacOS)
       if: runner.os == 'macOS'
       run: |
         brew install pango
         brew install cairo
+        pip install pycairo
     - uses: msys2/setup-msys2@v2
       name: Install System Dependency (Windows)
       if: runner.os == 'windows'
@@ -48,11 +50,11 @@ jobs:
       if: runner.os == 'windows'
       run: |
         python -m pip install --upgrade pip
-        python -m pip install Cython pytest
-        pip install .
+        python -m pip install Cython pytest pycairo
+        pip install .[test]
         pytest
     - name: Run Tests (Non-Windows)
       if: runner.os != 'windows'
       run: |
-        pip install .
+        pip install .[test]
         pytest
