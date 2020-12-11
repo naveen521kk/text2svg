@@ -1,4 +1,4 @@
-Sphinx==3.1.2
+Sphinx==3.3.1
 sphinx-copybutton
 sphinxext-opengraph
 sphinx-material
