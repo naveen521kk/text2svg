@@ -1,4 +1,4 @@
-text2svg.register\_font
+﻿text2svg.register\_font
 =======================
 
 .. currentmodule:: text2svg

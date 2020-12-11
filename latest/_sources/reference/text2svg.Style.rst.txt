@@ -1,4 +1,4 @@
-text2svg.Style
+﻿text2svg.Style
 ==============
 
 .. currentmodule:: text2svg

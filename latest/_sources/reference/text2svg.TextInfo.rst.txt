@@ -1,4 +1,4 @@
-text2svg.TextInfo
+﻿text2svg.TextInfo
 =================
 
 .. currentmodule:: text2svg
