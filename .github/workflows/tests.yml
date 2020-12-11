@@ -53,13 +53,13 @@ jobs:
         python -m pip install Cython pytest
         pip install .[test]
         mkdir tests/assets/images
-        pytest
+        pytest -s
     - name: Run Tests (Non-Windows)
       if: runner.os != 'windows'
       run: |
         pip install .[test]
         mkdir tests/assets/images
-        pytest
+        pytest -s
     - uses: actions/upload-artifact@v2
       if: ${{ failure() }}
       with:

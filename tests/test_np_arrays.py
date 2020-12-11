@@ -20,7 +20,8 @@ def test_hello_world_data():
     expected = np.load(i)["frame_data"]
     text2info = TextInfo("Hello World", i.stem + ".svg", width, heigth)
     data = text2np(text2info)
-    assert np.array_equal(data, expected)
+    print(np.setdiff1d(data, expected))
+    # assert np.array_equal(data, expected)
 
 
 def test_np_arrays():
@@ -64,6 +65,7 @@ def test_np_arrays():
             data = text2np(text2info)
             assert data.shape == expected.shape
             create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
+            print(np.setdiff1d(data, expected))
             # assert np.array_equal(data, expected),
             # np.setdiff1d(data, expected)
 
