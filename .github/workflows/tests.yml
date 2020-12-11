@@ -61,7 +61,6 @@ jobs:
         mkdir tests/assets/images
         pytest -s
     - uses: actions/upload-artifact@v2
-      if: ${{ failure() }}
       with:
-        name: images
+        name: images-${{matrix.os}}
         path: tests/assets
