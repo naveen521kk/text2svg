@@ -63,4 +63,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: images-${{matrix.os}}
-        path: tests/assets
+        path: tests/assets/images
