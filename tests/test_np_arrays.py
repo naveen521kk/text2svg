@@ -20,7 +20,8 @@ def test_hello_world_data():
     expected = np.load(i)["frame_data"]
     text2info = TextInfo("Hello World", i.stem + ".svg", width, heigth)
     data = text2np(text2info)
-    print(np.setdiff1d(data, expected))
+    if np.setdiff1d(data, expected).size > 0:
+        print(np.setdiff1d(data, expected))
     # assert np.array_equal(data, expected)
 
 
@@ -64,13 +65,12 @@ def test_np_arrays():
             del args
             data = text2np(text2info)
             assert data.shape == expected.shape
-            create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
-            print(np.setdiff1d(data, expected))
-            # assert np.array_equal(data, expected),
-            # np.setdiff1d(data, expected)
+            if np.setdiff1d(data, expected).size > 0:
+                print(np.setdiff1d(data, expected))
+                create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
 
 
-def test_cairo_png_data():
+def test_cairo_png_data(tmpdir):
     import cairo
 
     for i in data_dir.glob("*.npz"):
@@ -81,7 +81,7 @@ def test_cairo_png_data():
             surface = cairo.ImageSurface.create_for_data(
                 data, cairo.FORMAT_ARGB32, info["width"], info["height"]
             )
-            surface.write_to_png(assets_dir / "images" / (i.stem + ".png"))
+            surface.write_to_png(tmpdir / (i.stem + ".png"))
 
 
 def create_png(data, filename):
@@ -90,4 +90,6 @@ def create_png(data, filename):
     surface = cairo.ImageSurface.create_for_data(
         data, cairo.FORMAT_ARGB32, data.shape[0], data.shape[1]
     )
+    if not filename.parent.exists():
+        filename.parent.mkdir()
     surface.write_to_png(str(filename))
