@@ -62,5 +62,5 @@ jobs:
         pytest -s
     - uses: actions/upload-artifact@v2
       with:
-        name: images-${{matrix.os}}
+        name: images-${{matrix.os}}-${{ matrix.python-version }}
         path: tests/assets/images
