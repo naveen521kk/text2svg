@@ -59,7 +59,7 @@ jobs:
         pip install .[test]
         pytest
     - uses: actions/upload-artifact@v2
-      if: failed()
+      if: ${{ failure() }}
       with:
         name: images
         path: tests/assets/images
