@@ -66,6 +66,7 @@ def test_np_arrays():
             data = text2np(text2info)
             assert data.shape == expected.shape
             if np.setdiff1d(data, expected).size > 0:
+                print(i)
                 print(np.setdiff1d(data, expected))
                 create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
                 create_png(
