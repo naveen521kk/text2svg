@@ -68,6 +68,10 @@ def test_np_arrays():
             if np.setdiff1d(data, expected).size > 0:
                 print(np.setdiff1d(data, expected))
                 create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
+                create_png(
+                    expected,
+                    assets_dir / "images" / (i.stem + "-expected.png",),
+                )
 
 
 def test_cairo_png_data(tmpdir):
