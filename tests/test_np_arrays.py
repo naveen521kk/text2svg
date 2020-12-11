@@ -9,6 +9,11 @@ from text2svg.text2np import text2np
 
 from text2svg import TextInfo, register_font  # isort:skip
 
+try:
+    import cairo
+except ImportError:
+    cairo = None
+
 data_dir = (Path(__file__).parent / "control_data" / "numpy_test").resolve()
 assets_dir = (Path(__file__).parent / "assets").resolve()
 
@@ -76,25 +81,24 @@ def test_np_arrays():
 
 
 def test_cairo_png_data(tmpdir):
-    import cairo
 
-    for i in data_dir.glob("*.npz"):
-        if i.stem != "hello_world":
-            with open(data_dir / (i.stem + ".json")) as f:
-                info = json.load(f)
-            data = np.load(i)["frame_data"]
-            surface = cairo.ImageSurface.create_for_data(
-                data, cairo.FORMAT_ARGB32, info["width"], info["height"]
-            )
-            surface.write_to_png(tmpdir / (i.stem + ".png"))
+    if cairo:
+        for i in data_dir.glob("*.npz"):
+            if i.stem != "hello_world":
+                with open(data_dir / (i.stem + ".json")) as f:
+                    info = json.load(f)
+                data = np.load(i)["frame_data"]
+                surface = cairo.ImageSurface.create_for_data(
+                    data, cairo.FORMAT_ARGB32, info["width"], info["height"]
+                )
+                surface.write_to_png(tmpdir / (i.stem + ".png"))
 
 
 def create_png(data, filename):
-    import cairo
-
-    surface = cairo.ImageSurface.create_for_data(
-        data, cairo.FORMAT_ARGB32, data.shape[0], data.shape[1]
-    )
-    if not filename.parent.exists():
-        filename.parent.mkdir()
-    surface.write_to_png(str(filename))
+    if cairo:
+        surface = cairo.ImageSurface.create_for_data(
+            data, cairo.FORMAT_ARGB32, data.shape[0], data.shape[1]
+        )
+        if not filename.parent.exists():
+            filename.parent.mkdir()
+        surface.write_to_png(str(filename))

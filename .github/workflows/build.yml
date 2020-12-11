@@ -22,7 +22,7 @@ jobs:
       CIBW_BEFORE_BUILD_LINUX: "yum install -y pkgconfig && yum install -y cairo-devel && yum install -y pango-devel && pip install ."
       CIBW_BEFORE_BUILD_MACOS: "brew install pango && brew install cairo && pip install ."
       CIBW_BEFORE_BUILD_WINDOWS: "pip install cython && python windll/download_dlls.py && pkg-config --libs pango"
-      CIBW_TEST_REQUIRES: pytest Cython pycairo numpy
+      CIBW_TEST_REQUIRES: pytest Cython numpy
       CIBW_TEST_COMMAND: "pytest {project}/tests"
       CIBW_ENVIRONMENT_WINDOWS: "PKG_CONFIG_PATH='C:\\cibw\\vendor\\lib\\pkgconfig'"
       CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: python windll/inject-dlls.py {wheel} {dest_dir} C:\cibw\vendor\bin
