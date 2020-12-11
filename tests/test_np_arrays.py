@@ -70,7 +70,7 @@ def test_np_arrays():
                 create_png(data, assets_dir / "images" / (i.stem + "-got.png"))
                 create_png(
                     expected,
-                    assets_dir / "images" / (i.stem + "-expected.png",),
+                    assets_dir / "images" / (i.stem + "-expected.png"),
                 )
 
 
