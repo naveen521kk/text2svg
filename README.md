@@ -14,6 +14,8 @@
 
 This is a small wrapper aoung Pango and Cairo which allows you to enter a text and get you svg files ready. This is wrapped using Cython.
 
+This will be archived until I find time to work on this.
+
 ## Installation
 
 For Windows and MacOS, wheels are provided which seems to be working. For linux it is not recommended to use the `manylinux` wheels which was published to PyPi as it seems that it is working well. Instead you can install Pango and Cairo along with the header files for your package manage and run the below command
